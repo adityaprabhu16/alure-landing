@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.gradient-text {
+  background: linear-gradient(45deg, #f5f193, #90ee90);
+  background-size: 200% 200%;
+  animation: wavy-gradient 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@keyframes wavy-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  13% {
+    background-position: 0% 25%;
+  }
+  25% {
+    background-position: 25% 50%;
+  }
+  38% {
+    background-position: 50% 75%;
+  }
+  50% {
+    background-position: 75% 100%;
+  }
+  62% {
+    background-position: 100% 75%;
+  }
+  75% {
+    background-position: 75% 50%;
+  }
+  88% {
+    background-position: 50% 25%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

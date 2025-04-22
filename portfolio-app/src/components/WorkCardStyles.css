@@ -35,13 +35,16 @@
 
 .pro-btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center; /*Aligns items horizontally*/
     padding: 0.5rem 0;
 }
 
 .pro-btns .btn {
     padding: 0.5rem 1rem;
     margin: 1.25rem;
+    width: 32%;
+    height: 32%;
 }
 
 /*WITHIN 740px the following applies.*/

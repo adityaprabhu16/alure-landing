@@ -9,7 +9,7 @@ const HeroImg = () => {
             <video className="intro-video" src={IntroVideo} alt="IntroVideo" playsInline autoPlay muted loop poster="../assets/vineyard.mp4" ></video>
         </div>
         <div className="content">
-            <h1>Eliminate Japanese Beetles.</h1>
+            <h1>Eliminate <span className="gradient-text">Japanese Beetles.</span></h1>
             <p>Follow Alure LLC for more.</p>
             <div>
                 <Link to="/project" className="btn">Learn More</Link>

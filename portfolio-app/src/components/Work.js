@@ -7,7 +7,7 @@ import WorkCardData from "./WorkCardData.js";
 const Work= () => {
   return (
     <div className="work-container">
-        <h1 className="project-heading">Blog</h1>
+        <h1 className="project-heading">Latest Blog Posts & News</h1>
         <div className="project-container">
             {WorkCardData.map((val, ind) => {
                 return (

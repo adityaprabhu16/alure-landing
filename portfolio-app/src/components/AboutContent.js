@@ -9,8 +9,8 @@ const AboutContent = () => {
     return (
         <div className="about">
             <div className="left">
-                <h1>Who am I?</h1>
-                <p>I'm a react frontend developer. I create responsive secure websites for my clients.</p>
+                <h1>Who are we?</h1>
+                <p>We are a team of engineers, gardeners, brand builders, and entrepreneurs passionate about Japanese Beetles and the problems they cause MN growers!</p>
                 <Link to="/contact">
                     <button className="btn">Contact</button>
                 </Link>
