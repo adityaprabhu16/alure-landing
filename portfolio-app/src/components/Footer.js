@@ -11,26 +11,26 @@ const Footer = () => {
                 <div className="location">
                     <FaHome size={20} style={{color: "#fff", marginRight: "2rem"}}/>
                     <div>
-                        <p>123 Housing Society.</p>
-                        <p>Bangladesh.</p>
+                        <p>Minneapolis, MN</p>
+                        <p>United States</p>
                     </div>
                 </div>
                 <div className="phone">
                     <h4>
                         <FaPhone size={20} style={{ color:"#fff", marginRight: "2rem" }}/>
-                        1-2323-343-23
+                        (507) 339-4520
                     </h4>
                 </div>
                 <div className="email">
                     <h4>
                         <FaMailBulk size={20} style={{color:"#fff", marginRight:"2rem"}}/>
-                        info@gmail.com
+                        info@alurellc.com
                     </h4>
                 </div>
             </div>
             <div className="right">
-                <h4>About the company</h4>
-                <p>This is me Fahimul Kabir. CEO & Founder of Tech2etc. I enjoy discussing new projects and design challenges.</p>
+                <h4>About Alure LLC</h4>
+                <p>Alure LLC has developed a unique approach to managing Japanese Beetles: Bait and Kill surfaces. Our unique surface attracts the bugs and kills them on contact. No more refilling bags of dead beetles, or attracting more beetles from current traps!</p>
                 <div className="social">
                     <FaFacebook
                       size={30}

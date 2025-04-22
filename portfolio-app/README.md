@@ -75,3 +75,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  - rafce
  - unsplash.com for royalty free images (copy image address directly.)
  - TODO: Fix the max-min widths for some media queries, especially within Home page route for the <Work /> component.
+ - TODO (04/22/2025): Fix the word "Japanese Beetles" so that it has a color gradient".
