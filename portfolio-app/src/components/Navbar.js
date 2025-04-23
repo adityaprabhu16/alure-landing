@@ -6,6 +6,8 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
+import BeetleLogo from "../assets/beetle.png";
+
 const Navbar = () => {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
@@ -26,7 +28,7 @@ const Navbar = () => {
 
     return (
         <div className={color ? "header header-bg" : "header"}>
-            <Link to={"/"}><h1>Alure LLC</h1></Link>
+            <Link to={"/"} className="logo-container"><img src={BeetleLogo} className="logo" alt="beetle logo"/><h1>Alure LLC</h1></Link>
             <ul className={click ? "nav-menu active" : "nav-menu"}>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/project">Info</Link></li>
