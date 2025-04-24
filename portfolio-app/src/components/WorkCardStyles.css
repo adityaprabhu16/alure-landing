@@ -47,6 +47,11 @@
     height: 32%;
 }
 
+.project-img {
+    width: 100%;
+    height: 400px;
+}
+
 /*WITHIN 740px the following applies.*/
 @media screen and (max-width: 740px) {
     /*Ensures we get only one column now.*/

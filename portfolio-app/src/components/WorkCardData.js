@@ -1,25 +1,28 @@
-import pro1 from "../assets/project1.png";
-import pro2 from "../assets/project2.png";
-import pro3 from "../assets/project3.png";
+import pro1 from "../assets/project1.JPG";
+import pro2 from "../assets/project2.JPG";
+import pro3 from "../assets/project3.JPG";
 
 const ProjectCardData = [
     {
         imgsrc: pro1,
-        title: "Eliminate our beetles!",
+        title: "Summer 2023 Research Recap",
         text: "Thriving Facebook community and top-ranked podcast, Amy inspires a grounded, tangible and self-affirming sense of Wow! I really can do this for over 100,000 online entrepreneurs.",
-        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE"
+        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE",
+        path: '/blog/summer-2023-research-recap'
     },
     {
         imgsrc: pro2,
-        title: "Check out our facebook!",
+        title: "Top 5 Lessons from MN Cup",
         text: "Thriving Facebook community and top-ranked podcast, Amy inspires a grounded, tangible and self-affirming sense of Wow! I really can do this for over 100,000 online entrepreneurs.",
-        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE"
+        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE",
+        path: '/blog/top-5-lessons-mn-cup'
     },
     {
         imgsrc: pro3,
-        title: "Check the new site redesign!",
+        title: "Product Manufacturing Underway!",
         text: "Thriving Facebook community and top-ranked podcast, Amy inspires a grounded, tangible and self-affirming sense of Wow! I really can do this for over 100,000 online entrepreneurs.",
-        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE"
+        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE",
+        path: '/blog/product-manufacturing-underway'
     },
 ]
 
