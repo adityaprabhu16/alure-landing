@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from "./Navbar";
 import HeroImg2 from "./HeroImg2"
 import Footer from "./Footer";
+import "./BlogStyles.css";
 import { getBlogContent, getBlogTitle, getBlogBackgroundImage } from "./BlogContent";
 
 const Blog = () => {

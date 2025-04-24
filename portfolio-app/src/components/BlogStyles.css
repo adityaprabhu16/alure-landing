@@ -1,0 +1,14 @@
+.blog-content img {
+    max-width: 100%; /* Ensures image never exceeds container width */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Removes extra space below image */
+    margin: 20px auto; /* Centers image and adds vertical spacing */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
+}
+  
+@media (max-width: 768px) {
+    .blog-content img {
+        margin: 10px auto; /* Smaller margins on mobile */
+    }
+}

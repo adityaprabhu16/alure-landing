@@ -1,7 +1,7 @@
 import "./FooterStyles.css";
 
 import React from 'react'
-import { FaHome, FaPhone, FaMailBulk, FaFacebook, FaTwitter, FaLinkedin, FaYoutube  } from "react-icons/fa";
+import { FaHome, FaPhone, FaMailBulk, FaFacebook, FaInstagram, FaLinkedin, FaYoutube  } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -32,6 +32,15 @@ const Footer = () => {
                 <h4>About Alure LLC</h4>
                 <p>Alure LLC has developed a unique approach to managing Japanese Beetles: Bait and Kill surfaces. Our unique surface attracts the bugs and kills them on contact. No more refilling bags of dead beetles, or attracting more beetles from current traps!</p>
                 <div className="social">
+                <a href="https://www.instagram.com/alure_llc/">
+                    <FaInstagram
+                        size={30}
+                        style={{
+                          color: "#fff",
+                          marginRight: "1rem"
+                        }}
+                    />
+                  </a>
                   <a href="https://www.facebook.com/realalurellc/">
                     <FaFacebook
                         size={30}

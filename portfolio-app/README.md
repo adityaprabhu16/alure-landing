@@ -76,3 +76,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  - unsplash.com for royalty free images (copy image address directly.)
  - TODO: Fix the max-min widths for some media queries, especially within Home page route for the <Work /> component.
  - TODO (04/22/2025): Fix the word "Japanese Beetles" so that it has a color gradient".
+
+- General rules for ensuring images resize correctly: 
+- 
+.blog-content img {
+    max-width: 100%; /* Ensures image never exceeds container width */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Removes extra space below image */
+    margin: 20px auto; /* Centers image and adds vertical spacing */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
+}
