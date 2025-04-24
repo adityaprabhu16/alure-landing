@@ -69,8 +69,7 @@ const Footer = () => {
                     />
                   </a>
                 </div>
-                <br />
-                <p>Copyright {new Date().getFullYear()} Alure LLC. All rights reserved.</p>
+                <p className="footer-copyright">Copyright {new Date().getFullYear()} Alure LLC. All rights reserved.</p>
             </div>
         </div>
     </div>

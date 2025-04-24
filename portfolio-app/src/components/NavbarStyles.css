@@ -111,6 +111,7 @@ ul {
     font-weight: 600;
     cursor: pointer;
     border-radius: 8px;
+    margin-top: 1.16rem;
 }
 
 /*Home page white button*/
@@ -121,6 +122,7 @@ ul {
     background: transparent;
     color: #fff;
     border: 2px solid white;
+    margin-top: 1.16rem;
 }
 
 .btn-light:hover {

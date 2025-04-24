@@ -14,10 +14,12 @@ export default function Info() {
             <p>Alure LLC has developed a unique approach (above) to managing Japanese Beetles: Bait and Kill surfaces. Instead of pouring harmful pesticides on your plants several times each season, endangering both pollinators and the health of your produce, our unique surface <span className="gradient-text">baits the bugs and kills them on contact.</span>. However, the product is safe for humans and pets. No more refilling bags of dead beetles, or attracting more beetles from current traps. Our surface solution finishes the job by both baiting and killing.</p>
             <h1>Future Offering.</h1>
             <br />
-            <p>Go to our Homepage and sign up for our mailing list to stay tuned if you're interested to try out our end-all Japanese Beetle prevention strategy for Summer 2024! We're currently in the process of putting together kits for running pilot tests this summer. If Japanese Beetles have been pestering you and you are ready to try something new, sign up for our mailing list and preorder!</p>
+            <p>Go to our Homepage and sign up for our mailing list to stay tuned if you're interested to try out our end-all Japanese Beetle prevention strategy in the future! We're currently in the process of going through EPA registration this summer. If Japanese Beetles have been pestering you and you are ready to try something new, sign up for our mailing list and hear about our progress!</p>
+            <div className="link-container">
             <a href="/contact">
                 <button className="btn">Join Newsletter</button>
             </a>
+            </div>
         </div>
     )
 }

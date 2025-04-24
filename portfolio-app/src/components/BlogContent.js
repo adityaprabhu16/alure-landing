@@ -4,7 +4,7 @@ import pro3 from "../assets/project3.JPG";
 
 const blogContents = {
     'summer-2023-research-recap': {
-      title: 'Summer 2023 Research Recap',
+      title: 'Summer 2024 Research Recap',
       content: `
         <p>During the summer of 2023, our research team made significant strides in understanding emerging trends in online entrepreneurship.</p>
         <h2>Key Findings</h2>
@@ -33,7 +33,7 @@ const blogContents = {
       backgroundImage: pro2
     },
     'product-manufacturing-underway': {
-      title: 'Product Manufacturing Underway',
+      title: 'Product Manufacturing Research Underway',
       content: `
         <p>Exciting times ahead! Our product is moving from prototype to production.</p>
         <h2>Manufacturing Milestones</h2>

@@ -44,6 +44,15 @@
     text-align: center;
 }
 
+.link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.64rem; /* Adds space between links */
+    margin-top: 0.64rem; /* Adds space above the links */
+}
+
 .hero .content h1 {
     font-size: 4rem;
     padding: 0.6rem 0 1.5rem;
@@ -57,7 +66,6 @@
 
 .content .btn {
     margin: 3rem 0.2rem;
-    margin-left: 1.16em
 }
 
 @media screen and (max-width: 640px) {

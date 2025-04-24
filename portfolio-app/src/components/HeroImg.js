@@ -11,10 +11,9 @@ const HeroImg = () => {
         <div className="content">
             <h1>Eliminate <span className="gradient-text">Japanese Beetles.</span></h1>
             <p>Follow Alure LLC for more.</p>
-            <div>
-                <Link to="/project" className="btn">Learn More</Link>
-                <br /> 
-                <Link to="/contact" className="btn-light">Join Newsletter</Link>
+            <div className="link-container">
+              <Link to="/project" className="btn">Learn More</Link>
+              <Link to="/contact" className="btn-light">Join Newsletter</Link>
             </div>
         </div>
     </div>

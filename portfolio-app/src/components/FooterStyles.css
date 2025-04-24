@@ -50,6 +50,10 @@ p {
     font-size: 1.2rem;
 }
 
+.footer-copyright {
+    margin-top: 1.16rem;
+}
+
 @media screen and (max-width: 640px) {
     /*Reduces from 2frames to 1frame so they will now stack on eachother.*/
     .footer-container {
