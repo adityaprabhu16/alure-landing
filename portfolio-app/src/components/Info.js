@@ -1,6 +1,5 @@
 import AlureProduct from "../assets/beetle_samples.png";
 import "./InfoStyles.css";
-import { Link } from "react-router-dom";
 
 export default function Info() {
     return (
