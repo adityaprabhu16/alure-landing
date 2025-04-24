@@ -36,7 +36,7 @@ const Footer = () => {
                     <FaInstagram
                         size={30}
                         style={{
-                          color: "#fff",
+                          color: "#E1306C", // Instagram's brand color
                           marginRight: "1rem"
                         }}
                     />
@@ -45,7 +45,7 @@ const Footer = () => {
                     <FaFacebook
                         size={30}
                         style={{
-                          color: "#fff",
+                          color: "#4267B2", // Facebook's brand color
                           marginRight: "1rem"
                         }}
                     />
@@ -54,7 +54,7 @@ const Footer = () => {
                       <FaYoutube
                           size={30}
                           style={{
-                            color: "#fff",
+                            color: "#FF0000", // YouTube's brand color
                             marginRight: "1rem"
                           }}
                       />
@@ -63,12 +63,14 @@ const Footer = () => {
                     <FaLinkedin
                         size={30}
                         style={{
-                          color: "#fff",
+                          color: "#0077B5", // LinkedIn's brand color
                           marginRight: "1rem"
                         }}
                     />
                   </a>
                 </div>
+                <br />
+                <p>Copyright {new Date().getFullYear()} Alure LLC. All rights reserved.</p>
             </div>
         </div>
     </div>

@@ -1,0 +1,33 @@
+.info-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-container h1 {
+    margin-top: 1.25rem;
+    margin-left: 1.16rem;
+}
+
+.info-container p {
+    color: white;
+    margin-left: 2.16rem;
+    margin-right: 2.16rem;
+}
+
+.info-container img {
+    max-width: 80%;
+    height: 60%;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+@media screen and (min-width: 740px) {
+    .info-container p {
+        margin-left: 5.16rem;
+        margin-right: 5.16rem;
+    }
+}

@@ -6,6 +6,10 @@
     border-radius: 8px; /* Optional: adds rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
 }
+
+.blog-content ul {
+    color: white;
+}
   
 @media (max-width: 768px) {
     .blog-content img {

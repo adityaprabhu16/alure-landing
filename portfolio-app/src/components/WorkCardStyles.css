@@ -15,11 +15,18 @@
 .project-card {
     background: #1a1919;
     padding: 1.2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /*This width is important! Constrains the width within parent div! */
 .project-card img {
     width: 100%;
+    height: 300px;  /* Fixed height to control card size */
+    object-fit: cover;  /* Maintain aspect ratio, cover the entire area */
+    object-position: center;  /* Center the image */
 }
 
 .project-title {
@@ -48,7 +55,7 @@
 }
 
 .project-img {
-    width: 100%;
+    width: 80%;
     height: 400px;
 }
 
@@ -59,5 +66,8 @@
         max-width: 90%;
         margin: auto;
         grid-template-columns: 1fr;
+    }
+    .project-card img {
+        width: 95%;
     }
 }
