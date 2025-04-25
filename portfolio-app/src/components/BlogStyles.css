@@ -7,7 +7,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
 }
 
-.blog-content ul {
+.blog-content ul, .blog-content ol {
     color: white;
 }
   

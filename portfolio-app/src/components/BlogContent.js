@@ -6,7 +6,7 @@ const blogContents = {
     'summer-2023-research-recap': {
       title: 'Summer 2024 Research Recap',
       content: `
-        <p>During the summer of 2023, our research team made significant strides in understanding emerging trends in online entrepreneurship.</p>
+        <p>During the summer of 2024, our research team made significant strides in understanding emerging trends in online entrepreneurship.</p>
         <h2>Key Findings</h2>
         <ul>
           <li>Increased adoption of AI-driven marketing tools</li>
