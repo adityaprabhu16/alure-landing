@@ -87,3 +87,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     border-radius: 8px; /* Optional: adds rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
 }
+
+- .htaccess file: 
+ - Allows client side navigation within the SPA. 
+ - It's a server side configuration that works seamlessly with client side routing to avoid 404 errors. 
+ - Basically tells the server when to route to a specific page. Since we're using a SPA framework, the server can't exactly following the routes because the folder does not have a defined directory structure. Instead, we allow React Router to handle this navigation for us in the event the server can't navigate to a specific page (e.g. /contact).
