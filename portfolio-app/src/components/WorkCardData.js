@@ -1,8 +1,16 @@
 import pro1 from "../assets/project1.JPG";
 import pro2 from "../assets/project2.JPG";
 import pro3 from "../assets/project3.JPG";
+import pro4 from "../assets/project4.JPG";
 
 const ProjectCardData = [
+    {
+        imgsrc: pro4,
+        title: "How We Scaled Our Newsletter to 1,100 Subscribers in 8 Weeks—And Why Japanese Beetle Control Needs Reinventing",
+        text: "If you’ve been there—you’re not alone. We’ve been there too. That’s why we’re committed to building the most-effective Japanese Beetle solution on the market.",
+        view: "https://www.youtube.com/watch?v=P8YuWEkTeuE",
+        path: '/blog/newsletter-april-recap'
+    },
     {
         imgsrc: pro1,
         title: "Summer 2024 Research Recap",
@@ -13,7 +21,7 @@ const ProjectCardData = [
     {
         imgsrc: pro2,
         title: "Top 5 Lessons from MN Cup",
-        text: "Alure LLC was the STUDENT DIVISION WINNER of the Minnesota Cup in 2024! The funding we received will be used to continue our research, manufacturing, and development of this product so we can offer it commercially.",
+        text: "Alure LLC was the STUDENT DIVISION WINNER of the Minnesota Cup in 2024! The funding we received will be used to continue our research, manufacturing, and development of this innovation.",
         view: "https://www.youtube.com/watch?v=P8YuWEkTeuE",
         path: '/blog/top-5-lessons-mn-cup'
     },

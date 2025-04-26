@@ -7,10 +7,41 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
 }
 
-.blog-content ul, .blog-content ol {
+.blog-content {
     color: white;
 }
-  
+
+.blog-content h2 {
+    font-weight: normal;
+}
+
+.blog-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.blog-content ul li {
+    font-size: 1.2rem;
+}
+
+.blog-content ol li {
+    font-size: 1.2rem;
+    margin-left: 20px;
+}
+
+.blog-content button {
+    padding: 12px 32px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #f5f193, #90ee90);
+    color: #222;
+    border: 1px solid #fff;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 1.16rem;
+}
+
 @media (max-width: 768px) {
     .blog-content img {
         margin: 10px auto; /* Smaller margins on mobile */

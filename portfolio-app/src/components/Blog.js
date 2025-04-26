@@ -21,7 +21,6 @@ const Blog = () => {
       <div>
         <Navbar />
         <HeroImg2 
-          heading={title || 'Blog Post'} 
           text="" 
           backgroundImage={backgroundImage} 
         />
@@ -31,7 +30,7 @@ const Blog = () => {
           padding: '20px',
           lineHeight: '1.6'
         }}>
-          <h1>{title || 'Blog Post Not Found'}</h1>
+          <h1>{title || 'Not Found'}</h1>
           <div 
             dangerouslySetInnerHTML={{ 
               __html: content || defaultContent 
