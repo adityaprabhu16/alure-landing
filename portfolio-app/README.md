@@ -92,3 +92,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  - Allows client side navigation within the SPA. 
  - It's a server side configuration that works seamlessly with client side routing to avoid 404 errors. 
  - Basically tells the server when to route to a specific page. Since we're using a SPA framework, the server can't exactly following the routes because the folder does not have a defined directory structure. Instead, we allow React Router to handle this navigation for us in the event the server can't navigate to a specific page (e.g. /contact).
+
+Pre Deployment Checks:
+ - npm run lint  (check for any errors)
+ - npm run tests  (if any tests)
+ - Push changes and check on Qa environment (Netlify)
+ - If everything looks good:
+    - npm run build
+    - zip the build directory contents
+    - Upload to Hostinger file system
+    - Unzip the file
