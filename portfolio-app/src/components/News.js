@@ -29,6 +29,8 @@ export default function News() {
     useEffect(() => {
         if (!imagesLoaded) return;
 
+        const imgRefsCurrent = imgRefs.current;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -44,12 +46,12 @@ export default function News() {
             }
         );
 
-        imgRefs.current.forEach((img) => {
+        imgRefsCurrent.forEach((img) => {
             if (img) observer.observe(img);
         });
 
         return () => {
-            imgRefs.current.forEach((img) => {
+            imgRefsCurrent.forEach((img) => {
                 if (img) observer.unobserve(img);
             });
         };
