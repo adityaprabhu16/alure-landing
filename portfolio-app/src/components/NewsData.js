@@ -6,8 +6,13 @@ import logo5 from "../assets/logos/physorg.png";
 import logo6 from "../assets/logos/startribune.png";
 import logo7 from "../assets/logos/tcb.png";
 import logo8 from "../assets/logos/umn.png";
+import logo9 from "../assets/logos/cbsnews.png"
 
 export const NewsData = [
+    {
+        src: logo9,
+        alt: "CBS News"
+    },
     {
         src: logo1,
         alt: "5 Eye Witness News"
