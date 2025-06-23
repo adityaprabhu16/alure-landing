@@ -1,0 +1,164 @@
+.beetle-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  pointer-events: none; /* Allow clicks to pass through */
+  overflow: hidden;
+}
+
+.beetle {
+  position: absolute;
+  width: 30px; /* Small size for the beetle */
+  height: 30px;
+  z-index: 1000;
+}
+
+.beetle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Beetle 1 animation - start from top left */
+.beetle-animation-1 {
+  animation: beetle-path-1 5s ease-in-out forwards;
+}
+
+@keyframes beetle-path-1 {
+  0% {
+    top: -30px;
+    left: 10%;
+    transform: rotate(45deg);
+  }
+  20% {
+    top: 20%;
+    left: 25%;
+    transform: rotate(90deg);
+  }
+  40% {
+    top: 30%;
+    left: 35%;
+    transform: rotate(120deg);
+  }
+  60% {
+    top: 40%;
+    left: 30%;
+    transform: rotate(180deg);
+  }
+  80% {
+    top: 50%;
+    left: 40%;
+    transform: rotate(225deg);
+  }
+  100% {
+    top: 60%;
+    left: 45%;
+    transform: rotate(270deg);
+    opacity: 0;
+  }
+}
+
+/* Beetle 2 animation - start from top right */
+.beetle-animation-2 {
+  animation: beetle-path-2 5s ease-in-out forwards;
+}
+
+@keyframes beetle-path-2 {
+  0% {
+    top: -30px;
+    right: 10%;
+    transform: rotate(135deg);
+  }
+  25% {
+    top: 15%;
+    right: 20%;
+    transform: rotate(180deg);
+  }
+  50% {
+    top: 25%;
+    right: 30%;
+    transform: rotate(225deg);
+  }
+  75% {
+    top: 40%;
+    right: 20%;
+    transform: rotate(270deg);
+  }
+  100% {
+    top: 60%;
+    right: 30%;
+    transform: rotate(315deg);
+    opacity: 0;
+  }
+}
+
+/* Beetle 3 animation - start from bottom left */
+.beetle-animation-3 {
+  animation: beetle-path-3 5s ease-in-out forwards;
+}
+
+@keyframes beetle-path-3 {
+  0% {
+    bottom: -30px;
+    left: 20%;
+    transform: rotate(45deg);
+  }
+  20% {
+    bottom: 30%;
+    left: 15%;
+    transform: rotate(0deg);
+  }
+  40% {
+    bottom: 40%;
+    left: 25%;
+    transform: rotate(45deg);
+  }
+  70% {
+    bottom: 30%;
+    left: 35%;
+    transform: rotate(90deg);
+  }
+  100% {
+    bottom: 20%;
+    left: 45%;
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Beetle 4 animation - start from bottom right */
+.beetle-animation-4 {
+  animation: beetle-path-4 5s ease-in-out forwards;
+}
+
+@keyframes beetle-path-4 {
+  0% {
+    bottom: -30px;
+    right: 30%;
+    transform: rotate(315deg);
+  }
+  25% {
+    bottom: 20%;
+    right: 25%;
+    transform: rotate(270deg);
+  }
+  50% {
+    bottom: 30%;
+    right: 15%;
+    transform: rotate(225deg);
+  }
+  75% {
+    bottom: 35%;
+    right: 40%;
+    transform: rotate(180deg);
+  }
+  100% {
+    bottom: 25%;
+    right: 30%;
+    transform: rotate(135deg);
+    opacity: 0;
+  }
+}
