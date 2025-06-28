@@ -16,7 +16,7 @@ const Demo = () => {
             <HeroImg2 
                 heading="How Alure works." 
                 text="A quick and easy demo." 
-                backgroundImage="https://images.unsplash.com/photo-1637181155600-f4487dabf8ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                backgroundImage="../assets/backgrounds/demo-bg.png"
             />
             
             <section className="demo-section">

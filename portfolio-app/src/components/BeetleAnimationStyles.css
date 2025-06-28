@@ -24,7 +24,7 @@
 
 /* Beetle 1 animation - start from top left */
 .beetle-animation-1 {
-  animation: beetle-path-1 5s ease-in-out forwards;
+  animation: beetle-path-1 10s ease-in-out forwards;
 }
 
 @keyframes beetle-path-1 {
@@ -63,7 +63,7 @@
 
 /* Beetle 2 animation - start from top right */
 .beetle-animation-2 {
-  animation: beetle-path-2 5s ease-in-out forwards;
+  animation: beetle-path-2 10s ease-in-out forwards;
 }
 
 @keyframes beetle-path-2 {
@@ -97,7 +97,7 @@
 
 /* Beetle 3 animation - start from bottom left */
 .beetle-animation-3 {
-  animation: beetle-path-3 5s ease-in-out forwards;
+  animation: beetle-path-3 10s ease-in-out forwards;
 }
 
 @keyframes beetle-path-3 {
@@ -131,7 +131,7 @@
 
 /* Beetle 4 animation - start from bottom right */
 .beetle-animation-4 {
-  animation: beetle-path-4 5s ease-in-out forwards;
+  animation: beetle-path-4 10s ease-in-out forwards;
 }
 
 @keyframes beetle-path-4 {
