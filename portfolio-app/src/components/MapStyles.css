@@ -273,11 +273,30 @@
 
 .custom-marker div {
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .custom-marker div:hover {
-  transform: scale(1.2);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4) !important;
+  transform: scale(1.3) rotate(-45deg);
+  box-shadow: 0 6px 12px rgba(220, 53, 69, 0.6) !important;
+  filter: brightness(1.2);
+}
+
+/* Add a subtle pulse animation for new markers */
+@keyframes pulse {
+  0% {
+    transform: scale(1) rotate(-45deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(-45deg);
+  }
+  100% {
+    transform: scale(1) rotate(-45deg);
+  }
+}
+
+.custom-marker.pulse div {
+  animation: pulse 2s ease-in-out infinite;
 }
 
 /* Map loading and empty states */

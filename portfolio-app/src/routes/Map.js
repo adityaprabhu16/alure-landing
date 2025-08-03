@@ -6,13 +6,35 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MapStyles from '../components/MapStyles.css';
 
-// Create custom red marker icon for beetle sightings
+// Create custom red pinhead drop marker for beetle sightings
 const createCustomIcon = () => {
   return L.divIcon({
-    html: '<div style="background-color: #dc3545; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+    html: `
+      <div style="
+        position: relative;
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        border: 2px solid white;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+        <div style="
+          width: 8px;
+          height: 8px;
+          background: rgba(255,255,255,0.9);
+          border-radius: 50%;
+          transform: rotate(45deg);
+        "></div>
+      </div>
+    `,
     className: 'custom-marker',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10]
+    iconSize: [24, 24],
+    iconAnchor: [12, 24]
   });
 };
 
