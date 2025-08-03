@@ -37,10 +37,12 @@
 }
 
 .section-divider {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin: 3rem auto;
-    max-width: 1000px;
+    height: 2px;
+    background: linear-gradient(45deg, #f5f193, #90ee90);
+    margin: 60px auto;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 1px;
 }
 
 @media screen and (max-width: 768px) {

@@ -3,12 +3,18 @@ import React from 'react'
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeroImg2 from "../components/HeroImg2";
+import AboutContent from "../components/AboutContent";
 import Form from "../components/Form";
 
 const Contact = () => {
   return (
     <div>
       <Navbar />
+      <HeroImg2 heading="A boundless passion." text="Learn more about the team behind Alure and our passion." backgroundImage="../assets/backgrounds/about-bg.png"/>
+      <AboutContent />
+      
+      <div className="section-divider"></div>
+      
       <HeroImg2 heading="Curious?" text="Join our newsletter! Interested in a chat or demo? Say so in the description and we'll get back ASAP." backgroundImage="../assets/backgrounds/contact-bg.png"/>
       <Form />
       <Footer />

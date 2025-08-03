@@ -31,8 +31,6 @@ const Navbar = () => {
             <Link to={"/"} className="logo-container"><img src={BeetleLogo} className="logo" alt="beetle logo"/><h1>Alure.</h1></Link>
             <ul className={click ? "nav-menu active" : "nav-menu"}>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/project">Info</Link></li>
-                <li><Link to="/about">About</Link></li>
                 <li><Link to="/demo">Demo</Link></li>
                 <li><Link to="/map">Map</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
