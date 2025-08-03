@@ -76,6 +76,7 @@
   font-size: 1rem;
   transition: all 0.3s ease;
   background: white;
+  color: #333;
 }
 
 .form-group input:focus,
@@ -84,6 +85,19 @@
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Ensure placeholder text is visible */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #666;
+  opacity: 1;
+}
+
+/* Ensure select options are visible */
+.form-group select option {
+  color: #333;
+  background: white;
 }
 
 .form-group textarea {

@@ -26,7 +26,7 @@ const Map = () => {
   const [mapCenter, setMapCenter] = useState([39.8283, -98.5795]); // Center of USA
 
   const OPENCAGE_API_KEY = '6469ce11acf54373bec002f8a0ad4856';
-  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxs_vExPunHK80neUJ5bv4L7xaURNnZVo0xVcmNBJhIj8MazssQ9ATJNaqDzgYhY6W3/exec';
+  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuxCWa3CgAi6Haq__l4bC1aWiRPawkh1f8AghuMJwHYJGD2I7kFrXJnWSjQZnaTcQm/exec';
 
   // Fetch existing sightings on component mount
   useEffect(() => {
@@ -36,24 +36,40 @@ const Map = () => {
   const fetchSightings = async () => {
     try {
       const response = await fetch(`${GOOGLE_SHEETS_URL}?action=get`);
-      const data = await response.json();
-      if (data.success && data.data) {
-        setSightings(data.data);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.data) {
+          setSightings(data.data);
+        } else if (data.result === 'success' && data.data) {
+          setSightings(data.data);
+        }
+      } else {
+        console.error('Failed to fetch sightings:', response.status);
+        // If GET endpoint doesn't exist, we'll just show an empty map
+        setSightings([]);
       }
     } catch (error) {
       console.error('Error fetching sightings:', error);
+      // If there's an error, we'll just show an empty map
+      setSightings([]);
     }
   };
 
   const geocodeLocation = async (locationText) => {
     try {
-      const response = await fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationText)}&key=${OPENCAGE_API_KEY}`
-      );
+      console.log('Geocoding location:', locationText);
+      const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationText)}&key=${OPENCAGE_API_KEY}`;
+      console.log('Geocoding URL:', geocodeUrl);
+      
+      const response = await fetch(geocodeUrl);
+      console.log('Geocoding response status:', response.status);
+      
       const data = await response.json();
+      console.log('Geocoding response data:', data);
       
       if (data.results && data.results.length > 0) {
         const { lat, lng } = data.results[0].geometry;
+        console.log('Found coordinates:', { latitude: lat, longitude: lng });
         return { latitude: lat, longitude: lng };
       }
       throw new Error('Location not found');
@@ -73,6 +89,7 @@ const Map = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted with data:', formData);
     setLoading(true);
     setSubmitStatus('');
 
@@ -92,26 +109,47 @@ const Map = () => {
         timestamp: new Date().toISOString()
       };
 
-      // Submit to Google Sheets
+      // Submit to Google Sheets using form data to avoid CORS preflight
+      const urlParams = new URLSearchParams();
+      urlParams.append('locationText', submissionData.locationText);
+      urlParams.append('latitude', submissionData.latitude);
+      urlParams.append('longitude', submissionData.longitude);
+      urlParams.append('quantity', submissionData.quantity);
+      urlParams.append('plantType', submissionData.plantType);
+      urlParams.append('notes', submissionData.notes);
+      urlParams.append('email', submissionData.email);
+      urlParams.append('timestamp', submissionData.timestamp);
+
+      console.log('Submitting data to:', GOOGLE_SHEETS_URL);
+      console.log('Form data:', urlParams.toString());
+
       const response = await fetch(GOOGLE_SHEETS_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(submissionData)
+        body: urlParams.toString()
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+
       if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          locationText: '',
-          quantity: '',
-          plantType: '',
-          notes: '',
-          email: ''
-        });
-        // Refresh sightings
-        await fetchSightings();
+        const result = await response.json();
+        if (result.result === 'success') {
+          setSubmitStatus('success');
+          setFormData({
+            locationText: '',
+            quantity: '',
+            plantType: '',
+            notes: '',
+            email: ''
+          });
+          // Refresh sightings
+          await fetchSightings();
+        } else {
+          setSubmitStatus('error');
+        }
       } else {
         setSubmitStatus('error');
       }
