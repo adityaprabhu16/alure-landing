@@ -71,6 +71,21 @@ const Demo = () => {
         </div>
       </div>
 
+      <div className="section-divider"></div>
+      
+      <div className="info-container">
+        <h1>Future Offering.</h1>
+        <br />
+        <p>Go to our Homepage and sign up for our mailing list to stay tuned if you're interested to try out our end-all Japanese Beetle prevention strategy in the future! We're currently in the process of going through EPA registration this summer. If Japanese Beetles have been pestering you and you are ready to try something new, sign up for our mailing list and hear about our progress!</p>
+        <div className="link-container">
+          <a href="/contact">
+            <button className="btn">Join Newsletter</button>
+          </a>
+        </div>
+      </div>
+
+      <div className="section-divider"></div>
+      
       <Work />
       
       <Footer />
