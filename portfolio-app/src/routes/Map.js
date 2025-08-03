@@ -4,6 +4,8 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
+import Modal from "../components/Modal";
 import MapStyles from '../components/MapStyles.css';
 
 // Create custom red pinhead drop marker for beetle sightings
@@ -50,7 +52,9 @@ const Map = () => {
   });
   const [sightings, setSightings] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('success');
+  const [modalMessage, setModalMessage] = useState('');
   const [mapLoading, setMapLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState([39.8283, -98.5795]); // Center of USA
 
@@ -137,7 +141,7 @@ const Map = () => {
     e.preventDefault();
     console.log('Form submitted with data:', formData);
     setLoading(true);
-    setSubmitStatus('');
+    setModalOpen(false);
 
     try {
       // Geocode the location
@@ -183,7 +187,9 @@ const Map = () => {
       if (response.ok) {
         const result = await response.json();
         if (result.result === 'success') {
-          setSubmitStatus('success');
+          setModalType('success');
+          setModalMessage('Your Japanese Beetle sighting has been successfully reported and added to the map!');
+          setModalOpen(true);
           setFormData({
             locationText: '',
             quantity: '',
@@ -194,14 +200,20 @@ const Map = () => {
           // Refresh sightings
           await fetchSightings();
         } else {
-          setSubmitStatus('error');
+          setModalType('error');
+          setModalMessage('There was an error submitting your report. Please try again.');
+          setModalOpen(true);
         }
       } else {
-        setSubmitStatus('error');
+        setModalType('error');
+        setModalMessage('There was an error submitting your report. Please try again.');
+        setModalOpen(true);
       }
     } catch (error) {
       console.error('Submission error:', error);
-      setSubmitStatus('error');
+      setModalType('error');
+      setModalMessage('There was an error submitting your report. Please try again.');
+      setModalOpen(true);
     } finally {
       setLoading(false);
     }
@@ -349,24 +361,23 @@ const Map = () => {
               >
                 {loading ? 'Submitting...' : 'Report Sighting'}
               </button>
-
-              {submitStatus === 'success' && (
-                <div className="success-message">
-                  Thank you! Your sighting has been reported successfully.
-                </div>
-              )}
-
-              {submitStatus === 'error' && (
-                <div className="error-message">
-                  There was an error submitting your report. Please try again.
-                </div>
-              )}
             </form>
           </div>
         </div>
       </div>
       </div>
       <Footer />
+      
+      {/* Loading overlay */}
+      {loading && <Loading />}
+      
+      {/* Success/Error Modal */}
+      <Modal 
+        isOpen={modalOpen}
+        type={modalType}
+        message={modalMessage}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 };
