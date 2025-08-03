@@ -4,13 +4,17 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import MapStyles from '../components/MapStyles.css';
 
-// Fix for default markers in react-leaflet
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-});
+// Create custom red marker icon for beetle sightings
+const createCustomIcon = () => {
+  return L.divIcon({
+    html: '<div style="background-color: #dc3545; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+    className: 'custom-marker',
+    iconSize: [20, 20],
+    iconAnchor: [10, 10]
+  });
+};
+
+const customIcon = createCustomIcon();
 
 const Map = () => {
   const [formData, setFormData] = useState({
@@ -23,6 +27,7 @@ const Map = () => {
   const [sightings, setSightings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const [mapLoading, setMapLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState([39.8283, -98.5795]); // Center of USA
 
   const OPENCAGE_API_KEY = '6469ce11acf54373bec002f8a0ad4856';
@@ -35,13 +40,28 @@ const Map = () => {
 
   const fetchSightings = async () => {
     try {
-      const response = await fetch(`${GOOGLE_SHEETS_URL}?action=get`);
+      setMapLoading(true);
+      console.log('Fetching sightings from:', GOOGLE_SHEETS_URL);
+      const response = await fetch(GOOGLE_SHEETS_URL);
+      console.log('GET response status:', response.status);
+      console.log('GET response ok:', response.ok);
+      
       if (response.ok) {
         const data = await response.json();
+        console.log('GET response data:', data);
+        
         if (data.success && data.data) {
+          console.log('Setting sightings from success.data:', data.data);
           setSightings(data.data);
         } else if (data.result === 'success' && data.data) {
+          console.log('Setting sightings from result.data:', data.data);
           setSightings(data.data);
+        } else if (Array.isArray(data)) {
+          console.log('Setting sightings from direct array:', data);
+          setSightings(data);
+        } else {
+          console.log('No valid data found in response');
+          setSightings([]);
         }
       } else {
         console.error('Failed to fetch sightings:', response.status);
@@ -52,6 +72,8 @@ const Map = () => {
       console.error('Error fetching sightings:', error);
       // If there's an error, we'll just show an empty map
       setSightings([]);
+    } finally {
+      setMapLoading(false);
     }
   };
 
@@ -170,6 +192,12 @@ const Map = () => {
 
       <div className="map-container">
         <div className="map-section">
+          {mapLoading && (
+            <div className="map-loading">
+              <div className="loading-spinner"></div>
+              <p>Loading sightings...</p>
+            </div>
+          )}
           <MapContainer 
             center={mapCenter} 
             zoom={4} 
@@ -179,23 +207,41 @@ const Map = () => {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {sightings.map((sighting, index) => (
-              <Marker 
-                key={index} 
-                position={[parseFloat(sighting.latitude), parseFloat(sighting.longitude)]}
-              >
-                <Popup>
-                  <div className="popup-content">
-                    <h3>{sighting.plantType}</h3>
-                    <p><strong>Location:</strong> {sighting.locationText}</p>
-                    <p><strong>Quantity:</strong> {sighting.quantity}</p>
-                    {sighting.notes && <p><strong>Notes:</strong> {sighting.notes}</p>}
-                    <p><strong>Reported:</strong> {new Date(sighting.timestamp).toLocaleDateString()}</p>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
+            {sightings.map((sighting, index) => {
+              console.log('Rendering marker for sighting:', sighting);
+              const lat = parseFloat(sighting.latitude);
+              const lng = parseFloat(sighting.longitude);
+              
+              // Skip invalid coordinates
+              if (isNaN(lat) || isNaN(lng)) {
+                console.log('Skipping invalid coordinates:', sighting);
+                return null;
+              }
+              
+              return (
+                <Marker 
+                  key={`${sighting.locationText}-${sighting.timestamp}-${index}`}
+                  position={[lat, lng]}
+                  icon={customIcon}
+                >
+                  <Popup>
+                    <div className="popup-content">
+                      <h3>{sighting.plantType}</h3>
+                      <p><strong>Location:</strong> {sighting.locationText}</p>
+                      <p><strong>Quantity:</strong> {sighting.quantity}</p>
+                      {sighting.notes && <p><strong>Notes:</strong> {sighting.notes}</p>}
+                      <p><strong>Reported:</strong> {new Date(sighting.timestamp).toLocaleDateString()}</p>
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            })}
           </MapContainer>
+          {!mapLoading && sightings.length === 0 && (
+            <div className="no-sightings">
+              <p>No sightings reported yet. Be the first to report a Japanese Beetle sighting!</p>
+            </div>
+          )}
         </div>
 
         <div className="form-section">
