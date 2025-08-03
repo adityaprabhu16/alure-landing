@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import MapStyles from '../components/MapStyles.css';
 
 // Create custom red marker icon for beetle sightings
@@ -184,11 +186,13 @@ const Map = () => {
   };
 
   return (
-    <div className="map-page">
-      <div className="map-header">
-        <h1>Japanese Beetle Sightings Map</h1>
-        <p>Report Japanese Beetle sightings in your area to help track their spread and impact on local plants.</p>
-      </div>
+    <div>
+      <Navbar />
+      <div className="map-page">
+        <div className="map-header">
+          <h1>Japanese Beetle Sightings Map</h1>
+          <p>Report Japanese Beetle sightings in your area to help track their spread and impact on local plants.</p>
+        </div>
 
       <div className="map-container">
         <div className="map-section">
@@ -339,6 +343,8 @@ const Map = () => {
           </div>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };

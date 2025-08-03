@@ -1,19 +1,22 @@
 .map-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #000;
   padding: 20px;
+  padding-top: 120px; /* Account for fixed navbar */
 }
 
 .map-header {
   text-align: center;
   color: white;
   margin-bottom: 30px;
+  font-family: "Outfit", sans-serif;
 }
 
 .map-header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
 }
 
 .map-header p {
@@ -41,17 +44,18 @@
 }
 
 .form-section {
-  background: #f8f9fa;
+  background: #111;
   padding: 30px;
-  border-left: 1px solid #e9ecef;
+  border-left: 1px solid #333;
 }
 
 .report-form h2 {
-  color: #333;
+  color: white;
   margin-bottom: 25px;
   font-size: 1.5rem;
-  border-bottom: 2px solid #667eea;
+  border-bottom: 2px solid #f5f193;
   padding-bottom: 10px;
+  font-family: "Outfit", sans-serif;
 }
 
 .form-group {
@@ -62,8 +66,9 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #333;
+  color: white;
   font-size: 0.9rem;
+  font-family: "Outfit", sans-serif;
 }
 
 .form-group input,
@@ -71,33 +76,34 @@
 .form-group textarea {
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #e9ecef;
+  border: 2px solid #333;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: white;
-  color: #333;
+  background: #222;
+  color: white;
+  font-family: "Outfit", sans-serif;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #f5f193;
+  box-shadow: 0 0 0 3px rgba(245, 241, 147, 0.2);
 }
 
 /* Ensure placeholder text is visible */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #666;
+  color: #999;
   opacity: 1;
 }
 
 /* Ensure select options are visible */
 .form-group select option {
-  color: #333;
-  background: white;
+  color: white;
+  background: #222;
 }
 
 .form-group textarea {
@@ -108,8 +114,8 @@
 .submit-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(45deg, #f5f193, #90ee90);
+  color: #000;
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
@@ -117,6 +123,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 10px;
+  font-family: "Outfit", sans-serif;
 }
 
 .submit-btn:hover:not(:disabled) {
