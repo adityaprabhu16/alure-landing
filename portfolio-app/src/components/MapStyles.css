@@ -1,5 +1,5 @@
 .map-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 120px); /* Subtract navbar height */
   background: #000;
   padding: 20px;
   padding-top: 120px; /* Account for fixed navbar */
@@ -36,11 +36,12 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 200px); /* Reduce height to fit better */
 }
 
 .map-section {
   position: relative;
-  min-height: 600px;
+  height: 100%;
 }
 
 .form-section {
@@ -265,6 +266,51 @@
   border-color: #28a745;
 }
 
+/* Location autocomplete styles */
+.location-input-container {
+  position: relative;
+}
+
+.location-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #222;
+  border: 2px solid #333;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.suggestion-item {
+  padding: 12px 15px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #333;
+  font-family: "Outfit", sans-serif;
+}
+
+.suggestion-item:hover {
+  background: #333;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.privacy-note {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+  font-family: "Outfit", sans-serif;
+}
+
 /* Custom marker styles */
 .custom-marker {
   background: transparent;
@@ -306,7 +352,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 1000;
+  z-index: 1500;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
@@ -334,7 +380,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 1000;
+  z-index: 1500;
   background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;

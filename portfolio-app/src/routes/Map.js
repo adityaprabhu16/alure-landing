@@ -40,9 +40,26 @@ const createCustomIcon = () => {
   });
 };
 
-const customIcon = createCustomIcon();
+  const customIcon = createCustomIcon();
 
-const Map = () => {
+  // Function to extract city from full address for privacy
+  const extractCity = (fullAddress) => {
+    if (!fullAddress) return '';
+    
+    // Split by commas and get the last part (usually city, state)
+    const parts = fullAddress.split(',').map(part => part.trim());
+    
+    // If we have multiple parts, return the city/state part
+    if (parts.length > 1) {
+      // Return the second-to-last part (city) and last part (state)
+      return parts.slice(-2).join(', ');
+    }
+    
+    // If it's just one part, return it as is
+    return parts[0];
+  };
+
+  const Map = () => {
   const [formData, setFormData] = useState({
     locationText: '',
     quantity: '',
@@ -57,6 +74,8 @@ const Map = () => {
   const [modalMessage, setModalMessage] = useState('');
   const [mapLoading, setMapLoading] = useState(true);
   const [mapCenter, setMapCenter] = useState([39.8283, -98.5795]); // Center of USA
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const OPENCAGE_API_KEY = '6469ce11acf54373bec002f8a0ad4856';
   const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuxCWa3CgAi6Haq__l4bC1aWiRPawkh1f8AghuMJwHYJGD2I7kFrXJnWSjQZnaTcQm/exec';
@@ -135,11 +154,48 @@ const Map = () => {
       ...prev,
       [name]: value
     }));
+    
+    // If location field is being updated, get suggestions
+    if (name === 'locationText' && value.length > 2) {
+      getLocationSuggestions(value);
+    } else if (name === 'locationText' && value.length <= 2) {
+      setLocationSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const getLocationSuggestions = async (query) => {
+    try {
+      const response = await fetch(
+        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(query)}&key=${OPENCAGE_API_KEY}&limit=5`
+      );
+      const data = await response.json();
+      
+      if (data.results) {
+        const suggestions = data.results.map(result => ({
+          display: result.formatted,
+          value: result.formatted
+        }));
+        setLocationSuggestions(suggestions);
+        setShowSuggestions(true);
+      }
+    } catch (error) {
+      console.error('Error fetching location suggestions:', error);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setFormData(prev => ({
+      ...prev,
+      locationText: suggestion.value
+    }));
+    setShowSuggestions(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form submitted with data:', formData);
+    console.log('Setting loading to true - Loading component should appear');
     setLoading(true);
     setModalOpen(false);
 
@@ -215,6 +271,7 @@ const Map = () => {
       setModalMessage('There was an error submitting your report. Please try again.');
       setModalOpen(true);
     } finally {
+      console.log('Setting loading to false - Loading component should disappear');
       setLoading(false);
     }
   };
@@ -239,7 +296,7 @@ const Map = () => {
           <MapContainer 
             center={mapCenter} 
             zoom={4} 
-            style={{ height: '600px', width: '100%' }}
+            style={{ height: '100%', width: '100%' }}
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -265,8 +322,8 @@ const Map = () => {
                   <Popup>
                     <div className="popup-content">
                       <h3>{sighting.plantType}</h3>
-                      <p><strong>Location:</strong> {sighting.locationText}</p>
-                      <p><strong>Quantity:</strong> {sighting.quantity}</p>
+                      <p><strong>Location:</strong> {extractCity(sighting.locationText)}</p>
+                      <p><strong>Quantity:</strong> {sighting.quantity || 'Unknown'}</p>
                       {sighting.notes && <p><strong>Notes:</strong> {sighting.notes}</p>}
                       <p><strong>Reported:</strong> {new Date(sighting.timestamp).toLocaleDateString()}</p>
                     </div>
@@ -288,15 +345,35 @@ const Map = () => {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="locationText">Location *</label>
-                <input
-                  type="text"
-                  id="locationText"
-                  name="locationText"
-                  value={formData.locationText}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Chicago, IL or 123 Main St, Minneapolis, MN"
-                  required
-                />
+                <div className="location-input-container">
+                  <input
+                    type="text"
+                    id="locationText"
+                    name="locationText"
+                    value={formData.locationText}
+                    onChange={handleInputChange}
+                    onFocus={() => formData.locationText.length > 2 && setShowSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                    placeholder="Start typing to see suggestions..."
+                    required
+                  />
+                  {showSuggestions && locationSuggestions.length > 0 && (
+                    <div className="location-suggestions">
+                      {locationSuggestions.map((suggestion, index) => (
+                        <div
+                          key={index}
+                          className="suggestion-item"
+                          onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                          {suggestion.display}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <small className="privacy-note">
+                  Note: Only the city name will be visible to other users for privacy.
+                </small>
               </div>
 
               <div className="form-group">
@@ -369,7 +446,7 @@ const Map = () => {
       <Footer />
       
       {/* Loading overlay */}
-      {loading && <Loading />}
+      {loading && <Loading zIndex={2000} />}
       
       {/* Success/Error Modal */}
       <Modal 
