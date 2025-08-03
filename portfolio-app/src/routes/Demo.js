@@ -16,8 +16,6 @@ const Demo = () => {
     <div>
       <Navbar />
       <HeroImg2 heading="What's Alure?" text="What are we doing, and why is it important?" backgroundImage="../assets/backgrounds/project-bg.png"/>
-      <Info /> 
-      <Work />
       
       <div className="demo-section">
         <h1>Virtual Field Site Demo</h1>
@@ -58,6 +56,11 @@ const Demo = () => {
           </video>
         </div>
       </div>
+
+      <div className="section-divider"></div>
+      
+      <Info /> 
+      <Work />
       
       <Footer />
     </div>
