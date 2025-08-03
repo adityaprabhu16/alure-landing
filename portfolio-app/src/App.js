@@ -6,6 +6,7 @@ import Contact from "./routes/Contact";
 import Blog from "./components/Blog";
 import Demo from "./routes/Demo";
 import Map from "./routes/Map";
+import NewsPage from "./routes/News";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/blog/:blogSlug" element={<Blog />} />
         <Route path="/demo" element={<Demo />}/>
         <Route path="/map" element={<Map />}/>
+        <Route path="/news" element={<NewsPage />}/>
       </Routes>
     </div>
   );
