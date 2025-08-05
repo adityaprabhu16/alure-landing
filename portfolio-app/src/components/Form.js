@@ -2,6 +2,7 @@ import "./FormStyles.css";
 
 import React, { useState } from 'react'
 import Loading from './Loading';
+import Modal from './Modal';
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,9 @@ const Form = () => {
     message: ""
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('success');
+  const [modalMessage, setModalMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,8 +27,10 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setModalOpen(false);
+    
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxwU7QvrUzgrs-3zWKRi2jZwLc9mLcz6OCMVSqndOMcxC_uO5bprg1bqZ-HLqBKuTUfVg/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzBQAi5FnWLEX1OklfGrvPNF-IPxRvN-V7Jsl7K4fcF7XQJ2s0s5ZQ0FiUc7Au8L1cmYw/exec', {
           method: 'POST',
           headers: {
               "Content-Type": "text/plain;charset=utf-8"
@@ -36,19 +42,26 @@ const Form = () => {
       const result = await response.json();
 
       if (result.result === 'success') {
-          alert('Thank you for joining our newsletter!');
+          setModalType('success');
+          setModalMessage('Thank you for joining our newsletter! We\'ll be in touch soon.');
+          setModalOpen(true);
           setFormData({
               name: '',
               email: '',
               subject: '',
               message: ''
           });
-      } 
+      } else {
+          setModalType('error');
+          setModalMessage('There was an error submitting your message. Please try again.');
+          setModalOpen(true);
+      }
     } catch (error) {
       console.error('Submission error', error);
-      //setSubmitError('An error occurred. Please try again later.');
+      setModalType('error');
+      setModalMessage('There was an error submitting your message. Please try again.');
+      setModalOpen(true);
     } finally {
-      //setIsSubmitting(false);
       setIsLoading(false);
   }
   };
@@ -67,6 +80,14 @@ const Form = () => {
             <textarea rows="6" id="message" name="message" placeholder="Type your message here" value={formData.message} onChange={handleChange} />
             <button className="btn" >Submit</button>
         </form>
+        
+        {/* Success/Error Modal */}
+        <Modal 
+          isOpen={modalOpen}
+          type={modalType}
+          message={modalMessage}
+          onClose={() => setModalOpen(false)}
+        />
     </div>
   )
 }
