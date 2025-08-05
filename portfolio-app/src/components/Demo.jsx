@@ -13,11 +13,7 @@ const Demo = () => {
     return (
         <div className="demo-page">
             <Navbar />
-            <HeroImg2 
-                heading="How Alure works." 
-                text="A quick and easy demo." 
-                backgroundImage="../assets/backgrounds/demo-bg.png"
-            />
+            <HeroImg2 heading="What's Alure?" text="What are we doing, and why is it important?" backgroundImage="demo"/>
             
             <section className="demo-section">
                 <h1>Virtual Field Site Demo</h1>

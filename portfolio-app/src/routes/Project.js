@@ -10,7 +10,7 @@ const Project = () => {
   return (
     <div>
       <Navbar />
-      <HeroImg2 heading="What's Alure?" text="What are we doing, and why is it important?" backgroundImage="../assets/backgrounds/project-bg.png"/>
+      <HeroImg2 heading="What's Alure?" text="What are we doing, and why is it important?" backgroundImage="project"/>
       <Info /> 
       <Work />
       <Footer />

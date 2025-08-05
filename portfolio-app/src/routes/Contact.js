@@ -10,12 +10,12 @@ const Contact = () => {
   return (
     <div>
       <Navbar />
-      <HeroImg2 heading="A boundless passion." text="Learn more about the team behind Alure and our passion." backgroundImage="../assets/backgrounds/about-bg.png"/>
+      <HeroImg2 heading="A boundless passion." text="Learn more about the team behind Alure and our passion." backgroundImage="about"/>
       <AboutContent />
       
       <div className="section-divider"></div>
       
-      <HeroImg2 heading="Curious?" text="Join our newsletter! Interested in a chat or demo? Say so in the description and we'll get back ASAP." backgroundImage="../assets/backgrounds/contact-bg.png"/>
+      <HeroImg2 heading="Let's have a chat" text="We are always looking for new and exciting opportunities. Let's get in touch" backgroundImage="contact"/>
       <Form />
       <Footer />
     </div>

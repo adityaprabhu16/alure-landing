@@ -9,7 +9,7 @@ const NewsPage = () => {
   return (
     <div>
       <Navbar />
-      <HeroImg2 heading="Latest News & Updates" text="Stay informed about our progress, field trials, and industry recognition" backgroundImage="../assets/backgrounds/contact-bg.png"/>
+      <HeroImg2 heading="Latest News & Updates" text="Stay informed about our progress, field trials, and industry recognition" backgroundImage="contact"/>
       <News />
       <Footer />
     </div>

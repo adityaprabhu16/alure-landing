@@ -279,15 +279,24 @@
   pointer-events: none;
 }
 
-/* Form validation styles */
-.form-group input:invalid,
-.form-group select:invalid {
+/* Form validation styles - only show red on invalid submission, not by default */
+.form-group input:invalid:not(:placeholder-shown),
+.form-group select:invalid:not([value=""]),
+.form-group textarea:invalid:not(:placeholder-shown) {
   border-color: #dc3545;
 }
 
-.form-group input:valid,
-.form-group select:valid {
+.form-group input:valid:not(:placeholder-shown),
+.form-group select:valid:not([value=""]),
+.form-group textarea:valid:not(:placeholder-shown) {
   border-color: #28a745;
+}
+
+/* Remove the default red outline from required fields */
+.form-group input:required,
+.form-group select:required,
+.form-group textarea:required {
+  border-color: #333;
 }
 
 /* Location autocomplete styles */
@@ -415,4 +424,154 @@
   color: #666;
   font-size: 1.1rem;
   margin: 0;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 1024px) {
+  .map-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    height: auto;
+    min-height: calc(100vh - 200px);
+  }
+  
+  .form-section {
+    border-left: none;
+    border-top: 1px solid #333;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .map-section {
+    height: 400px;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-page {
+    padding: 10px;
+    padding-top: 100px;
+  }
+  
+  .map-header h1 {
+    font-size: 2rem;
+  }
+  
+  .map-header p {
+    font-size: 1rem;
+  }
+  
+  .map-container {
+    border-radius: 10px;
+    margin: 0 10px;
+  }
+  
+  .form-section {
+    padding: 20px;
+    max-height: 350px;
+  }
+  
+  .report-form h2 {
+    font-size: 1.3rem;
+  }
+  
+  .map-section {
+    height: 350px;
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-page {
+    padding: 5px;
+    padding-top: 90px;
+  }
+  
+  .map-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .map-header p {
+    font-size: 0.9rem;
+  }
+  
+  .map-container {
+    margin: 0 5px;
+    border-radius: 8px;
+  }
+  
+  .form-section {
+    padding: 15px;
+    max-height: 300px;
+  }
+  
+  .map-section {
+    height: 300px;
+    min-height: 300px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .submit-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  .report-form h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .map-page {
+    padding: 2px;
+    padding-top: 85px;
+  }
+  
+  .map-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .map-header p {
+    font-size: 0.85rem;
+  }
+  
+  .form-section {
+    padding: 12px;
+    max-height: 250px;
+  }
+  
+  .map-section {
+    height: 250px;
+    min-height: 250px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .submit-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 } 

@@ -16,7 +16,7 @@ const Demo = () => {
   return (
     <div>
       <Navbar />
-      <HeroImg2 heading="What's Alure?" text="What are we doing, and why is it important?" backgroundImage="../assets/backgrounds/project-bg.png"/>
+      <HeroImg2 heading="What's Alure?" text="What are we doing, and why is it important?" backgroundImage="project"/>
       
       <div className="info-container">
         <h1>Japanese Beetle Prevention, <span className="gradient-text">Reinvented.</span></h1>

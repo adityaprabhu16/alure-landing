@@ -6,7 +6,7 @@ const HeroImg = () => {
   return (
     <div className="hero">
         <div className="mask">
-            <video className="intro-video" src={IntroVideo} alt="IntroVideo" playsInline autoPlay muted loop poster="../assets/vineyard.mp4" ></video>
+            <video className="intro-video" src={IntroVideo} alt="IntroVideo" playsInline autoPlay muted loop></video>
         </div>
         <div className="content">
             <h1>Eliminate <span className="gradient-text">Japanese Beetles.</span></h1>

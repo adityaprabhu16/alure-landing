@@ -126,5 +126,5 @@ export const getBlogTitle = (blogSlug) => {
 };
 
 export const getBlogBackgroundImage = (blogSlug) => {
-    return blogContents[blogSlug]?.backgroundImage || '../assets/backgrounds/blog-bg.png';
+    return blogContents[blogSlug]?.backgroundImage || pro1; // Use imported image as fallback
 };
