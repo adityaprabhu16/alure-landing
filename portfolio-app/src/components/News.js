@@ -5,43 +5,41 @@ const News = () => {
   const newsItems = [
     {
       id: 1,
-      title: "EPA Registration Progress Update",
-      description: "We're excited to share that our Japanese Beetle prevention device has completed Phase 2 of EPA registration. Learn about our journey and what's next for commercial availability.",
-      image: "/src/assets/beetle.png",
+      title: "Local entrepreneurs tout hands-free, eco-friendly Japanese beetle prevention product",
+      description: "A local group of former and current University of Minnesota students says they have a hands-free, eco-friendly solution to the invasive Japanese beetles that wreak havoc on plants, flowers, shrubs and trees.",
+      image: "/news1.png",
       date: "March 15, 2024",
-      link: "/newsletter/epa-progress"
+      link: "https://kstp.com/kstp-news/top-news/local-entrepreneurs-tout-hands-free-eco-friendly-japanese-beetle-prevention-product/"
     },
     {
       id: 2,
-      title: "Field Trial Results: 95% Success Rate",
-      description: "Our latest field trials across Minnesota vineyards show a 95% reduction in Japanese Beetle damage. See the detailed results and hear from participating growers.",
-      image: "/src/assets/vineyard1.JPG",
+      title: "Start-up company aims to eliminate Japanese beetles with eco-friendly solution",
+      description: "A start-up company co-founded by Aditya Prabhu while he was a University of Minnesota College of Science and Engineering undergraduate student aims to attract and eliminate Japanese Beetles in large quantities with a new method that is environmentally safe.",
+      image: "/news2.png",
       date: "February 28, 2024",
-      link: "/newsletter/field-trials"
+      link: "https://cse.umn.edu/college/news/start-company-aims-eliminate-japanese-beetles-eco-friendly-solution"
     },
     {
       id: 3,
-      title: "Sustainable Agriculture Award Nomination",
-      description: "Alure LLC has been nominated for the 2024 Sustainable Agriculture Innovation Award. Discover how our eco-friendly approach is gaining recognition in the industry.",
-      image: "/src/assets/beetle_samples.png",
+      title: "Minnesota: A Student Innovation Eliminates Invasive Pests",
+      description: "University of Minnesota students develop innovative solution for Japanese beetle control, winning recognition and funding for their eco-friendly approach to pest management.",
+      image: "/news3.png",
       date: "February 10, 2024",
-      link: "/newsletter/award-nomination"
+      link: "https://www.morningagclips.com/mag_enewsletter/minnesota-a-student-innovation-eliminates-invasive-pests/"
     },
     {
       id: 4,
-      title: "New Partnership with University of Minnesota",
-      description: "We're thrilled to announce our research partnership with UMN's Department of Entomology. This collaboration will accelerate our product development and field testing.",
-      image: "/src/assets/umn.png",
+      title: "University of Minnesota Japanese Beetle Invention",
+      description: "CBS News covers the innovative Japanese beetle prevention device developed by University of Minnesota students, highlighting the environmental benefits and commercial potential.",
+      image: "/news4.png",
       date: "January 25, 2024",
-      link: "/newsletter/umn-partnership"
+      link: "https://www.cbsnews.com/minnesota/news/university-of-minnesota-japanese-beetle-invention/"
     }
   ];
 
   const handleNewsClick = (link) => {
-    // For now, we'll just log the click. In a real app, this would navigate to the article
-    console.log('Navigating to:', link);
-    // You can implement actual navigation here
-    // window.location.href = link;
+    // Open the external link in a new tab
+    window.open(link, '_blank');
   };
 
   return (
