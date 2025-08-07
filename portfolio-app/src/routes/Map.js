@@ -1,46 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useState, useEffect, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import 'leaflet.heat';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
 import Modal from "../components/Modal";
 import MapStyles from '../components/MapStyles.css';
 
-// Create custom red pinhead drop marker for beetle sightings
-const createCustomIcon = () => {
-  return L.divIcon({
-    html: `
-      <div style="
-        position: relative;
-        width: 24px;
-        height: 24px;
-        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        border-radius: 50% 50% 50% 0;
-        transform: rotate(-45deg);
-        border: 2px solid white;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      ">
-        <div style="
-          width: 8px;
-          height: 8px;
-          background: rgba(255,255,255,0.9);
-          border-radius: 50%;
-          transform: rotate(45deg);
-        "></div>
-      </div>
-    `,
-    className: 'custom-marker',
-    iconSize: [24, 24],
-    iconAnchor: [12, 24]
-  });
-};
+// HeatMapLayer component to handle heat map rendering
+const HeatMapLayer = ({ sightings, zoomLevel }) => {
+  const map = useMap();
+  const heatLayerRef = useRef(null);
 
-  const customIcon = createCustomIcon();
+  useEffect(() => {
+    if (!sightings || sightings.length === 0) return;
+
+    // Remove existing heat layer
+    if (heatLayerRef.current) {
+      map.removeLayer(heatLayerRef.current);
+    }
+
+    // Aggregate sightings by geographic areas with zoom-aware scaling
+    const aggregatedDataMap = new Map();
+    
+    // Calculate grid size and area scaling based on zoom level
+    const gridSize = zoomLevel < 8 ? 0.5 : 0.1; // Larger grid when zoomed out
+    const areaScaling = zoomLevel < 8 ? 1 : 0.2; // Scale down intensity for smaller areas
+    
+    sightings.forEach(sighting => {
+      const lat = parseFloat(sighting.latitude);
+      const lng = parseFloat(sighting.longitude);
+      
+      if (isNaN(lat) || isNaN(lng)) return;
+      
+      // Create a grid key based on zoom level for aggregation
+      const gridLat = Math.round(lat / gridSize) * gridSize;
+      const gridLng = Math.round(lng / gridSize) * gridSize;
+      const gridKey = `${gridLat},${gridLng}`;
+      
+      if (!aggregatedDataMap.has(gridKey)) {
+        aggregatedDataMap.set(gridKey, {
+          lat: gridLat,
+          lng: gridLng,
+          totalBeetles: 0,
+          sightingCount: 0,
+          maxIntensity: 0,
+          areaSize: gridSize * gridSize // Approximate area size
+        });
+      }
+      
+      const area = aggregatedDataMap.get(gridKey);
+      area.sightingCount++;
+      
+      // Convert quantity to estimated beetle count
+      let beetleCount = 0;
+      if (sighting.quantity) {
+        switch (sighting.quantity) {
+          case '1-5':
+            beetleCount = 3; // Average of range
+            break;
+          case '6-20':
+            beetleCount = 13; // Average of range
+            break;
+          case '21-50':
+            beetleCount = 35; // Average of range
+            break;
+          case '51-100':
+            beetleCount = 75; // Average of range
+            break;
+          case '100+':
+            beetleCount = 150; // Conservative estimate for 100+
+            break;
+          default:
+            beetleCount = 3;
+        }
+      }
+      
+      area.totalBeetles += beetleCount;
+      area.maxIntensity = Math.max(area.maxIntensity, beetleCount);
+    });
+
+    // Convert aggregated data to heat map format with zoom-aware intensity
+    const heatData = Array.from(aggregatedDataMap.values()).map(area => {
+      // Calculate beetles per area unit (normalized density)
+      const beetlesPerUnit = area.totalBeetles / area.areaSize;
+      
+      // Base intensity based on density, scaled by zoom level
+      const baseIntensity = Math.min(beetlesPerUnit * areaScaling, 8);
+      
+      // Density multiplier for areas with multiple sightings (capped lower for zoomed in view)
+      const maxDensityMultiplier = zoomLevel < 8 ? 2 : 1.5;
+      const densityMultiplier = Math.min(area.sightingCount / 3, maxDensityMultiplier);
+      
+      // Final intensity with zoom-aware scaling
+      const intensity = baseIntensity * densityMultiplier;
+      
+      return [area.lat, area.lng, intensity];
+    });
+
+    if (heatData.length > 0) {
+      // Create heat map layer with zoom-aware settings
+      const maxIntensity = zoomLevel < 8 ? 10 : 6; // Lower max intensity when zoomed in
+      
+      heatLayerRef.current = L.heatLayer(heatData, {
+        radius: zoomLevel < 8 ? 60 : 25,
+        blur: zoomLevel < 8 ? 40 : 15,
+        maxZoom: 10,
+        gradient: {
+          0.0: '#00ff00',   // Green for low intensity
+          0.2: '#90ee90',   // Light green
+          0.4: '#ffff00',   // Yellow for medium intensity
+          0.6: '#ff8000',   // Orange for high intensity
+          0.8: '#ff4000',   // Dark orange
+          1.0: '#ff0000'    // Red for very high intensity
+        },
+        maxIntensity: maxIntensity
+      });
+      
+      map.addLayer(heatLayerRef.current);
+    }
+
+    return () => {
+      if (heatLayerRef.current) {
+        map.removeLayer(heatLayerRef.current);
+      }
+    };
+  }, [sightings, map, zoomLevel]);
+
+  return null;
+};
 
   // Function to extract city from full address for privacy
   const extractCity = (fullAddress) => {
@@ -59,7 +149,7 @@ const createCustomIcon = () => {
     return parts[0];
   };
 
-  const Map = () => {
+  const MapComponent = () => {
   const [formData, setFormData] = useState({
     locationText: '',
     quantity: '',
@@ -76,6 +166,7 @@ const createCustomIcon = () => {
   const [mapCenter, setMapCenter] = useState([39.8283, -98.5795]); // Center of USA
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(4);
 
   const OPENCAGE_API_KEY = '6469ce11acf54373bec002f8a0ad4856';
   const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuxCWa3CgAi6Haq__l4bC1aWiRPawkh1f8AghuMJwHYJGD2I7kFrXJnWSjQZnaTcQm/exec';
@@ -325,8 +416,8 @@ const createCustomIcon = () => {
       <Navbar />
       <div className="map-page">
         <div className="map-header">
-          <h1>Japanese Beetle Sightings Map</h1>
-          <p>Report Japanese Beetle sightings in your area to help track their spread and impact on local plants.</p>
+          <h1>Japanese Beetle Infestation Heat Map</h1>
+          <p>Report Japanese Beetle sightings to help track infestation patterns. The heat map shows aggregated data to protect individual privacy while highlighting problem areas.</p>
         </div>
 
       <div className="map-container">
@@ -341,52 +432,51 @@ const createCustomIcon = () => {
             center={mapCenter} 
             zoom={4} 
             style={{ height: '100%', width: '100%' }}
+            onZoomEnd={(e) => setZoomLevel(e.target.getZoom())}
           >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {sightings.map((sighting, index) => {
-              console.log('Rendering marker for sighting:', sighting);
-              const lat = parseFloat(sighting.latitude);
-              const lng = parseFloat(sighting.longitude);
-              
-              // Skip invalid coordinates
-              if (isNaN(lat) || isNaN(lng)) {
-                console.log('Skipping invalid coordinates:', sighting);
-                return null;
-              }
-              
-              // Debug: Check if quantity looks like a date and log it
-              if (sighting.quantity) {
-                console.log('Quantity field value:', sighting.quantity);
-                // Check if quantity looks like a date (contains date-like patterns)
-                const datePattern = /^\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2}/;
-                if (datePattern.test(sighting.quantity)) {
-                  console.warn('Quantity field appears to contain a date instead of count:', sighting.quantity);
-                }
-              }
-              
-              return (
-                <Marker 
-                  key={`${sighting.locationText}-${sighting.timestamp}-${index}`}
-                  position={[lat, lng]}
-                  icon={customIcon}
-                >
-                  <Popup>
-                    <div className="popup-content">
-                      <h3>{sighting.plantType}</h3>
-                      <p><strong>Location:</strong> {extractCity(sighting.locationText)}</p>
-                      <p><strong>Quantity:</strong> {sighting.quantity || 'Unknown'}</p>
-                      {sighting.notes && <p><strong>Notes:</strong> {sighting.notes}</p>}
-                      <p><strong>Reported:</strong> {new Date(sighting.timestamp).toLocaleDateString()}</p>
-                      {sighting.email && <p><strong>Contact:</strong> {sighting.email}</p>}
-                    </div>
-                  </Popup>
-                </Marker>
-              );
-            })}
+            <HeatMapLayer sightings={sightings} zoomLevel={zoomLevel} />
           </MapContainer>
+          
+          {/* Heat Map Legend */}
+          {!mapLoading && sightings.length > 0 && (
+            <div className="heat-map-legend">
+              <h4>Infestation Density</h4>
+              <div className="legend-items">
+                <div className="legend-item">
+                  <div className="legend-color" style={{ backgroundColor: '#00ff00' }}></div>
+                  <span>Low Density</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color" style={{ backgroundColor: '#90ee90' }}></div>
+                  <span>Light Density</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color" style={{ backgroundColor: '#ffff00' }}></div>
+                  <span>Medium Density</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color" style={{ backgroundColor: '#ff8000' }}></div>
+                  <span>High Density</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color" style={{ backgroundColor: '#ff4000' }}></div>
+                  <span>Very High Density</span>
+                </div>
+                <div className="legend-item">
+                  <div className="legend-color" style={{ backgroundColor: '#ff0000' }}></div>
+                  <span>Critical Density</span>
+                </div>
+              </div>
+              <small style={{ color: '#666', fontSize: '0.7rem', marginTop: '8px', display: 'block' }}>
+                Density scales with zoom level for better detail
+              </small>
+            </div>
+          )}
+          
           {!mapLoading && sightings.length === 0 && (
             <div className="no-sightings">
               <p>No sightings reported yet. Be the first to report a Japanese Beetle sighting!</p>
@@ -397,6 +487,9 @@ const createCustomIcon = () => {
         <div className="form-section">
           <div className="report-form">
             <h2>Report a Sighting</h2>
+            <p className="privacy-notice">
+              <strong>Privacy First:</strong> Your exact location is generalized on the heat map to protect your privacy while still helping track infestation patterns.
+            </p>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="locationText">Location *</label>
@@ -487,6 +580,9 @@ const createCustomIcon = () => {
                   onChange={handleInputChange}
                   placeholder="your.email@example.com"
                 />
+                <small className="privacy-note">
+                  Note: Your email will not be displayed on the map for privacy.
+                </small>
               </div>
 
               <button 
@@ -517,4 +613,4 @@ const createCustomIcon = () => {
   );
 };
 
-export default Map; 
+export default MapComponent; 
