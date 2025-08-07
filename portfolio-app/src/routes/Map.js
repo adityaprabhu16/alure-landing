@@ -97,19 +97,42 @@ const createCustomIcon = () => {
         const data = await response.json();
         console.log('GET response data:', data);
         
+        let sightingsData = [];
+        
         if (data.success && data.data) {
           console.log('Setting sightings from success.data:', data.data);
-          setSightings(data.data);
+          sightingsData = data.data;
         } else if (data.result === 'success' && data.data) {
           console.log('Setting sightings from result.data:', data.data);
-          setSightings(data.data);
+          sightingsData = data.data;
         } else if (Array.isArray(data)) {
           console.log('Setting sightings from direct array:', data);
-          setSightings(data);
+          sightingsData = data;
         } else {
           console.log('No valid data found in response');
-          setSightings([]);
+          sightingsData = [];
         }
+        
+        // Clean and validate the sightings data
+        const cleanedSightings = sightingsData.map(sighting => {
+          // Check if quantity field contains a date instead of count
+          let quantity = sighting.quantity;
+          if (quantity) {
+            const datePattern = /^\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2}/;
+            if (datePattern.test(quantity)) {
+              console.warn('Found quantity field with date value, setting to Unknown:', quantity);
+              quantity = 'Unknown';
+            }
+          }
+          
+          return {
+            ...sighting,
+            quantity: quantity || 'Unknown'
+          };
+        });
+        
+        console.log('Cleaned sightings data:', cleanedSightings);
+        setSightings(cleanedSightings);
       } else {
         console.error('Failed to fetch sightings:', response.status);
         // If GET endpoint doesn't exist, we'll just show an empty map
@@ -200,6 +223,26 @@ const createCustomIcon = () => {
     setModalOpen(false);
 
     try {
+      // Validate quantity field
+      if (!formData.quantity || formData.quantity === '') {
+        setModalType('error');
+        setModalMessage('Please select a quantity for your sighting.');
+        setModalOpen(true);
+        setLoading(false);
+        return;
+      }
+      
+      // Validate that quantity is one of the expected values
+      const validQuantities = ['1-5', '6-20', '21-50', '51-100', '100+'];
+      if (!validQuantities.includes(formData.quantity)) {
+        console.warn('Invalid quantity value:', formData.quantity);
+        setModalType('error');
+        setModalMessage('Please select a valid quantity for your sighting.');
+        setModalOpen(true);
+        setLoading(false);
+        return;
+      }
+
       // Geocode the location
       const coordinates = await geocodeLocation(formData.locationText);
       
@@ -228,6 +271,7 @@ const createCustomIcon = () => {
 
       console.log('Submitting data to:', GOOGLE_SHEETS_URL);
       console.log('Form data:', urlParams.toString());
+      console.log('Quantity being submitted:', submissionData.quantity);
 
       const response = await fetch(GOOGLE_SHEETS_URL, {
         method: 'POST',
@@ -313,6 +357,16 @@ const createCustomIcon = () => {
                 return null;
               }
               
+              // Debug: Check if quantity looks like a date and log it
+              if (sighting.quantity) {
+                console.log('Quantity field value:', sighting.quantity);
+                // Check if quantity looks like a date (contains date-like patterns)
+                const datePattern = /^\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2}/;
+                if (datePattern.test(sighting.quantity)) {
+                  console.warn('Quantity field appears to contain a date instead of count:', sighting.quantity);
+                }
+              }
+              
               return (
                 <Marker 
                   key={`${sighting.locationText}-${sighting.timestamp}-${index}`}
@@ -326,6 +380,7 @@ const createCustomIcon = () => {
                       <p><strong>Quantity:</strong> {sighting.quantity || 'Unknown'}</p>
                       {sighting.notes && <p><strong>Notes:</strong> {sighting.notes}</p>}
                       <p><strong>Reported:</strong> {new Date(sighting.timestamp).toLocaleDateString()}</p>
+                      {sighting.email && <p><strong>Contact:</strong> {sighting.email}</p>}
                     </div>
                   </Popup>
                 </Marker>
@@ -377,7 +432,7 @@ const createCustomIcon = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="quantity">Quantity *</label>
+                <label htmlFor="quantity">Number of Beetles *</label>
                 <select
                   id="quantity"
                   name="quantity"
@@ -385,13 +440,16 @@ const createCustomIcon = () => {
                   onChange={handleInputChange}
                   required
                 >
-                  <option value="">Select quantity</option>
+                  <option value="">Select number of beetles</option>
                   <option value="1-5">1-5 beetles</option>
                   <option value="6-20">6-20 beetles</option>
                   <option value="21-50">21-50 beetles</option>
                   <option value="51-100">51-100 beetles</option>
                   <option value="100+">100+ beetles</option>
                 </select>
+                <small className="privacy-note">
+                  Select the approximate number of Japanese Beetles you observed.
+                </small>
               </div>
 
               <div className="form-group">
