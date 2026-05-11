@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 import Loading from './Loading';
 import Modal from './Modal';
 
-const Form = () => {
+const Form = ({ fixedSubject = null, successMessage = null }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    subject: fixedSubject ?? "",
     message: ""
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +43,15 @@ const Form = () => {
 
       if (result.result === 'success') {
           setModalType('success');
-          setModalMessage('Thank you for joining our newsletter! We\'ll be in touch soon.');
+          setModalMessage(
+            successMessage ??
+              "Thank you for joining our newsletter! We'll be in touch soon."
+          );
           setModalOpen(true);
           setFormData({
               name: '',
               email: '',
-              subject: '',
+              subject: fixedSubject ?? '',
               message: ''
           });
       } else {
@@ -74,8 +77,12 @@ const Form = () => {
             <input type="text" id="name" name="name" value={formData.name} onChange={handleChange}></input>
             <label htmlFor="email">Email</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required></input>
-            <label htmlFor="subject">Subject</label>
-            <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleChange}></input>
+            {!fixedSubject && (
+              <>
+                <label htmlFor="subject">Subject</label>
+                <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleChange}></input>
+              </>
+            )}
             <label htmlFor="message">Message</label>
             <textarea rows="6" id="message" name="message" placeholder="Type your message here" value={formData.message} onChange={handleChange} />
             <button className="btn" >Submit</button>

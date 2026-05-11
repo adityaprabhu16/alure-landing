@@ -1,6 +1,6 @@
 import "./NavbarStyles.css";
 
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -14,17 +14,14 @@ const Navbar = () => {
 
     const [color, setColor] = useState(false);
 
-    //If we scroll further down, a navigation bar will essentially appear.
-    const changeColor = () => {
-        if(window.scrollY >= 1) {
-            setColor(true);
-        }
-        else {
-            setColor(false);
-        }
-    }
-
-    window.addEventListener("scroll", changeColor);
+    useEffect(() => {
+        const changeColor = () => {
+            setColor(window.scrollY >= 1);
+        };
+        changeColor();
+        window.addEventListener("scroll", changeColor);
+        return () => window.removeEventListener("scroll", changeColor);
+    }, []);
 
     return (
         <div className={color ? "header header-bg" : "header"}>
