@@ -11,7 +11,7 @@ const Contact = () => {
     <div>
       <Navbar />
       <HeroImg2 heading="A boundless passion." text="Learn more about the team behind Alure and our passion." backgroundImage="about"/>
-      <AboutContent />
+      <AboutContent contactFormId="contact-form" />
       
       <div className="section-divider"></div>
       

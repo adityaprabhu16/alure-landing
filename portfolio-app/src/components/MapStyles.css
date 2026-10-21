@@ -43,6 +43,8 @@
   position: relative;
   height: 100%;
   min-height: 500px; /* Ensure map has minimum height */
+  isolation: isolate;
+  z-index: 1;
 }
 
 .form-section {
@@ -264,6 +266,8 @@
   border-radius: 10px;
   overflow: hidden;
   background: #000 !important;
+  isolation: isolate;
+  z-index: 0;
 }
 
 .leaflet-popup-content-wrapper {
@@ -290,15 +294,15 @@
   pointer-events: none;
 }
 
-/* Form validation styles - only show red on invalid submission, not by default */
+/* Form validation styles - only show red on invalid submission, not by default.
+   The beetle-count select is gated by .is-invalid so an empty required select
+   does not paint red on first load. */
 .form-group input:invalid:not(:placeholder-shown),
-.form-group select:invalid:not([value=""]),
 .form-group textarea:invalid:not(:placeholder-shown) {
   border-color: #dc3545;
 }
 
 .form-group input:valid:not(:placeholder-shown),
-.form-group select:valid:not([value=""]),
 .form-group textarea:valid:not(:placeholder-shown) {
   border-color: #28a745;
 }
@@ -308,6 +312,10 @@
 .form-group select:required,
 .form-group textarea:required {
   border-color: #333;
+}
+
+.form-group select.is-invalid {
+  border-color: #dc3545;
 }
 
 /* Location autocomplete styles */
@@ -449,8 +457,9 @@
   .form-section {
     border-left: none;
     border-top: 1px solid #333;
-    max-height: 400px;
-    overflow-y: auto;
+    max-height: none;
+    height: auto;
+    overflow-y: visible;
   }
   
   .map-section {
@@ -480,7 +489,9 @@
   
   .form-section {
     padding: 20px;
-    max-height: 350px;
+    max-height: none;
+    height: auto;
+    overflow-y: visible;
   }
   
   .report-form h2 {
@@ -488,8 +499,8 @@
   }
   
   .map-section {
-    height: 350px;
-    min-height: 350px;
+    height: 60dvh;
+    min-height: 60dvh;
   }
 }
 
@@ -515,12 +526,14 @@
   
   .form-section {
     padding: 15px;
-    max-height: 300px;
+    max-height: none;
+    height: auto;
+    overflow-y: visible;
   }
   
   .map-section {
-    height: 300px;
-    min-height: 300px;
+    height: 60dvh;
+    min-height: 60dvh;
   }
   
   .form-group input,
@@ -594,6 +607,42 @@
   color: #666;
 }
 
+.legend-toggle,
+.map-pan-toggle {
+  font-family: "Outfit", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.legend-toggle {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid #333;
+  background: #fff;
+  color: #222;
+}
+
+.map-pan-toggle {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 1100;
+  padding: 10px 16px;
+  border: 1px solid #fff;
+  background: linear-gradient(45deg, #f5f193, #90ee90);
+  color: #222;
+}
+
+.map-section.map-scroll-pass .leaflet-container {
+  pointer-events: none;
+  touch-action: pan-y;
+}
+
 /* Extra small devices */
 @media (max-width: 360px) {
   .map-page {
@@ -611,12 +660,14 @@
   
   .form-section {
     padding: 12px;
-    max-height: 250px;
+    max-height: none;
+    height: auto;
+    overflow-y: visible;
   }
   
   .map-section {
-    height: 250px;
-    min-height: 250px;
+    height: 60dvh;
+    min-height: 60dvh;
   }
   
   .form-group input,

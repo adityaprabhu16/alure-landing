@@ -132,6 +132,29 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
   return null;
 };
 
+const MapInteraction = ({ active, narrow }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (narrow && !active) {
+      map.dragging.disable();
+      if (map.touchZoom) map.touchZoom.disable();
+    } else {
+      map.dragging.enable();
+      if (map.touchZoom) map.touchZoom.enable();
+    }
+    map.invalidateSize();
+  }, [active, narrow, map]);
+
+  useEffect(() => {
+    const onResize = () => map.invalidateSize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [map]);
+
+  return null;
+};
+
   // Function to extract city from full address for privacy
   const extractCity = (fullAddress) => {
     if (!fullAddress) return '';
@@ -167,6 +190,12 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
   const [locationSuggestions, setLocationSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(4);
+  const [quantityError, setQuantityError] = useState(false);
+  const [isNarrow, setIsNarrow] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+  );
+  const [mapActive, setMapActive] = useState(false);
+  const [legendOpen, setLegendOpen] = useState(false);
 
   const OPENCAGE_API_KEY = '6469ce11acf54373bec002f8a0ad4856';
   const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuxCWa3CgAi6Haq__l4bC1aWiRPawkh1f8AghuMJwHYJGD2I7kFrXJnWSjQZnaTcQm/exec';
@@ -174,6 +203,19 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
   // Fetch existing sightings on component mount
   useEffect(() => {
     fetchSightings();
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 768px)');
+    const onChange = () => {
+      setIsNarrow(media.matches);
+      if (!media.matches) {
+        setMapActive(false);
+      }
+    };
+    onChange();
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
   }, []);
 
   const fetchSightings = async () => {
@@ -421,7 +463,7 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
         </div>
 
       <div className="map-container">
-        <div className="map-section">
+        <div className={isNarrow && !mapActive ? 'map-section map-scroll-pass' : 'map-section'}>
           {mapLoading && (
             <div className="map-loading">
               <div className="loading-spinner"></div>
@@ -439,11 +481,33 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <HeatMapLayer sightings={sightings} zoomLevel={zoomLevel} />
+            <MapInteraction active={mapActive} narrow={isNarrow} />
           </MapContainer>
+          {isNarrow && (
+            <button
+              type="button"
+              className="map-pan-toggle"
+              onClick={() => setMapActive((active) => !active)}
+            >
+              {mapActive ? 'Done moving map' : 'Move the map'}
+            </button>
+          )}
           
           {/* Heat Map Legend */}
           {!mapLoading && sightings.length > 0 && (
             <div className="heat-map-legend">
+              {isNarrow && (
+                <button
+                  type="button"
+                  className="legend-toggle"
+                  aria-expanded={legendOpen}
+                  onClick={() => setLegendOpen((open) => !open)}
+                >
+                  {legendOpen ? 'Hide density' : 'Show density'}
+                </button>
+              )}
+              {(!isNarrow || legendOpen) && (
+              <>
               <h4>Infestation Density</h4>
               <div className="legend-items">
                 <div className="legend-item">
@@ -474,6 +538,8 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
               <small style={{ color: '#666', fontSize: '0.7rem', marginTop: '8px', display: 'block' }}>
                 Density scales with zoom level for better detail
               </small>
+              </>
+              )}
             </div>
           )}
           
@@ -530,7 +596,19 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
                   id="quantity"
                   name="quantity"
                   value={formData.quantity}
-                  onChange={handleInputChange}
+                  className={quantityError && !formData.quantity ? 'is-invalid' : undefined}
+                  onChange={(event) => {
+                    handleInputChange(event);
+                    if (event.target.value) {
+                      setQuantityError(false);
+                    }
+                  }}
+                  onBlur={(event) => {
+                    if (!event.target.value) {
+                      setQuantityError(true);
+                    }
+                  }}
+                  onInvalid={() => setQuantityError(true)}
                   required
                 >
                   <option value="">Select number of beetles</option>
