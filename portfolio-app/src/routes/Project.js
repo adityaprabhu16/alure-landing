@@ -6,6 +6,7 @@ import HeroImg2 from '../components/HeroImg2.js';
 import Work from "../components/Work.js";
 import Info from "../components/Info.js";
 
+// FIXIT: This page is not on a route. It still repeats the Demo claims via Info and the blog cards via Work.
 const Project = () => {
   return (
     <div>

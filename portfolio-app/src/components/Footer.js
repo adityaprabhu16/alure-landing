@@ -30,7 +30,9 @@ const Footer = () => {
             </div>
             <div className="right">
                 <h4>About Alure LLC</h4>
+                {/* FIXIT: "kills them on contact" is original product copy. Keep it aligned with Demo if that sentence changes after claims review. */}
                 <p>Alure LLC has developed a unique approach to managing Japanese Beetles: Bait and Kill surfaces. Our unique surface attracts the bugs and kills them on contact. No more refilling bags of dead beetles, or attracting more beetles from current traps!</p>
+                {/* FIXIT: These icon links have no accessible name. Add an aria-label, or visually hidden text, for each profile. */}
                 <div className="social">
                 <a href="https://www.instagram.com/alure_llc/">
                     <FaInstagram

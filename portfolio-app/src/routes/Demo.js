@@ -9,6 +9,8 @@ import InfoStyles from "../components/InfoStyles.css";
 // Import video files
 import AlureDemo from '../assets/demos/AlureDemo.mov';
 import AlureRender from '../assets/demos/AlureRender.mov';
+// FIXIT: Photo swap is waiting on new stills. Keep beetle_samples.png and the
+// two videos until those files exist. Do not invent replacement shots.
 import AlureProduct from "../assets/beetle_samples.png";
 
 const Demo = () => {
@@ -20,7 +22,7 @@ const Demo = () => {
       <div className="info-container">
         <h1>Japanese Beetle Prevention, <span className="gradient-text">Reinvented.</span></h1>
         <br />
-        <p>Japanese Beetles (above) are an invasive species to U.S. It is an agricultural and commercial pest that causes heavy plant damage, costing the average vineyard, orchard, or commercial grower over $1,000{/* TODO: Cite a source for this figure, and confirm that "an acre" is the unit to stand behind. */} an acre to manage. These beetles destroy over <span className="gradient-text">300 common plant species</span>, from soybeans to rosebushes. Unfortunately, the only way to manage them is through harmful pestcides that kill pollinators and sterilize the environment.</p>
+        <p>Japanese Beetles (above) are an invasive species to U.S. It is an agricultural and commercial pest that causes heavy plant damage, costing the average vineyard, orchard, or commercial grower over $1,000{/* FIXIT: Cite a source for this figure, and confirm that "an acre" is the unit to stand behind. The claims table in docs/phases/phase-7-demo.md has to be reviewed before any of this paragraph is rewritten. "pestcides" on this line is a typo. */} an acre to manage. These beetles destroy over <span className="gradient-text">300 common plant species</span>, from soybeans to rosebushes. Unfortunately, the only way to manage them is through harmful pestcides that kill pollinators and sterilize the environment.</p>
         <br />
         <h1>Sustainable, Simple, Aesthetic.</h1>
         <br />
@@ -77,6 +79,7 @@ const Demo = () => {
         <br />
         <p>Go to our Homepage and sign up for our mailing list to stay tuned if you're interested to try out our end-all Japanese Beetle prevention strategy in the future! We're currently in the process of going through EPA registration this summer. If Japanese Beetles have been pestering you and you are ready to try something new, sign up for our mailing list and hear about our progress!</p>
         <div className="link-container">
+          {/* FIXIT: This button is nested in a link. Make it one link styled as the button. */}
           <a href="/contact">
             <button className="btn">Join Newsletter</button>
           </a>

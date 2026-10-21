@@ -7,6 +7,7 @@ import Form from "../components/Form";
 import "../components/InfoStyles.css";
 import "../components/DemoStyles.css";
 
+// FIXIT: "Maintainence" is misspelled. Confirm the sheet still matches before changing the stored subject.
 const LAWN_WAITLIST_SUBJECT = "Lawn Maintainence Signup";
 
 const LawnWaitlist = () => {

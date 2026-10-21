@@ -14,6 +14,7 @@ const steps = [
   },
   {
     title: "Eliminate",
+    // FIXIT: If the Demo contact-kill sentence is softened after claims review, change this line in the same pass.
     text: "The surface baits the bugs and kills them on contact."
   }
 ];

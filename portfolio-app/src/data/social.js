@@ -2,6 +2,11 @@
 // theme, they load heavy third-party scripts, ad blockers drop them, and they
 // shift layout. LinkedIn has no feed embed, only per-post embeds.
 
+// FIXIT: Replace these three placeholders with real posts. Each entry needs a
+// postUrl for that post, an imageUrl, a caption of at most 120 characters, and
+// a real date. Drop placeholder: true once the card is real. Do not embed
+// Instagram or LinkedIn.
+
 export const followLinks = [
   {
     platform: "Instagram",

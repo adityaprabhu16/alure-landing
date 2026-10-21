@@ -29,6 +29,7 @@ const SocialCard = ({ post }) => {
         target="_blank"
         rel="noopener noreferrer"
       >
+        {/* FIXIT: imageUrl is empty on the seeded cards, so this block shows TODO. */}
         {post.imageUrl ? (
           <img src={post.imageUrl} alt="" />
         ) : (

@@ -46,6 +46,7 @@ const News = () => {
   return (
     <div className="news-container">
       <div className="news-header">
+        {/* FIXIT: /news also renders this heading in its page hero, so the title appears twice. Drop one of them. */}
         <h1>In the press</h1>
         <p>Coverage of Alure and our Minnesota field trials.</p>
       </div>
@@ -65,6 +66,7 @@ const News = () => {
               onClick={() => toggleCard(item.id)}
             >
               <span className="news-image">
+                {/* FIXIT: Set width and height so the press image does not shift layout when it loads. */}
                 <img src={item.image} alt={item.title} />
               </span>
               <span className="news-content">

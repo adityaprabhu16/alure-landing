@@ -1,6 +1,9 @@
 import AlureProduct from "../assets/beetle_samples.png";
 import "./InfoStyles.css";
 
+// FIXIT: This duplicates the Demo claims, including the unsourced $1,000 figure
+// and the "pestcides" typo. It is only imported by the unrouted Project page.
+// If Demo's wording is reviewed, update this copy in the same pass.
 export default function Info() {
     return (
         <div className="info-container">

@@ -7,6 +7,7 @@ import vineyards from "../assets/blogs/vineyards.png";
 import mncup from "../assets/blogs/mncup.JPG";
 import manufacturing from "../assets/blogs/manufacturing.JPG";
 
+// FIXIT: newsletter-april-recap states a 90% kill rate, a 30-foot range, and high-efficacy non-toxic control. Those lines are in the phase 7 claims table and should not change until that table is reviewed.
 const blogContents = {
     'newsletter-april-recap': {
       title: 'How We Scaled Our Newsletter to 1,100 Subscribers in 8 Weeks—And Why Japanese Beetle Control Needs Reinventing',
