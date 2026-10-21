@@ -5,6 +5,7 @@ import HeroImg from "../components/HeroImg";
 import Footer from "../components/Footer";
 import Work from "../components/Work";
 import News from "../components/News";
+import HowItWorks from "../components/HowItWorks";
 import BeetleAnimation from "../components/BeetleAnimation";
 
 
@@ -14,6 +15,7 @@ const Home = () => {
       <BeetleAnimation />
       <Navbar />
       <HeroImg />
+      <HowItWorks />
       <News />
       <Work />
       <Footer />

@@ -9,7 +9,7 @@ const NewsPage = () => {
   return (
     <div>
       <Navbar />
-      <HeroImg2 heading="Latest News & Updates" text="Stay informed about our progress, field trials, and industry recognition" backgroundImage="contact"/>
+      <HeroImg2 heading="In the press" text="Coverage of Alure and our Minnesota field trials." backgroundImage="contact"/>
       <News />
       <Footer />
     </div>

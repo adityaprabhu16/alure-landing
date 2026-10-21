@@ -46,8 +46,8 @@ const News = () => {
   return (
     <div className="news-container">
       <div className="news-header">
-        <h1>Latest News & Updates</h1>
-        <p>Stay informed about our progress, field trials, and industry recognition</p>
+        <h1>In the press</h1>
+        <p>Coverage of Alure and our Minnesota field trials.</p>
       </div>
       
       <div className="news-grid">
