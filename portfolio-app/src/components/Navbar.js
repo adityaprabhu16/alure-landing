@@ -32,6 +32,7 @@ const Navbar = () => {
                 <li><NavLink to="/map" className={({ isActive }) => isActive ? "active" : undefined}>Map</NavLink></li>
                 <li><NavLink to="/demo" className={({ isActive }) => isActive ? "active" : undefined}>Demo</NavLink></li>
                 <li><NavLink to="/news" className={({ isActive }) => isActive ? "active" : undefined}>News</NavLink></li>
+                <li><NavLink to="/merch" className={({ isActive }) => isActive ? "active" : undefined}>Merch</NavLink></li>
                 <li><NavLink to="/contact" className={({ isActive }) => isActive ? "nav-contact active" : "nav-contact"}>Contact</NavLink></li>
             </ul>
             {/* FIXIT: This control is a div, so it is not in the tab order. Make it a button. Below 1040px the nav links stay focusable while they sit off-screen. */}

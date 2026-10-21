@@ -7,6 +7,7 @@ import Blog from "./components/Blog";
 import Demo from "./routes/Demo";
 import Map from "./routes/Map";
 import NewsPage from "./routes/News";
+import Merch from "./routes/Merch";
 import LawnWaitlist from "./routes/LawnWaitlist";
 import NotFound from "./routes/NotFound";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/demo" element={<Demo />}/>
         <Route path="/map" element={<Map />}/>
         <Route path="/news" element={<NewsPage />}/>
+        <Route path="/merch" element={<Merch />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
