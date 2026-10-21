@@ -20,7 +20,7 @@ const Demo = () => {
       <div className="info-container">
         <h1>Japanese Beetle Prevention, <span className="gradient-text">Reinvented.</span></h1>
         <br />
-        <p>Japanese Beetles (above) are an invasive species to U.S. It is an agricultural and commercial pest that causes heavy plant damage, costing the average vineyard, orchard, or commercial grower over $1,000 an acre to manage. These beetles destroy over <span className="gradient-text">300 common plant species</span>, from soybeans to rosebushes. Unfortunately, the only way to manage them is through harmful pestcides that kill pollinators and sterilize the environment.</p>
+        <p>Japanese Beetles (above) are an invasive species to U.S. It is an agricultural and commercial pest that causes heavy plant damage, costing the average vineyard, orchard, or commercial grower over $1,000{/* TODO: Cite a source for this figure, and confirm that "an acre" is the unit to stand behind. */} an acre to manage. These beetles destroy over <span className="gradient-text">300 common plant species</span>, from soybeans to rosebushes. Unfortunately, the only way to manage them is through harmful pestcides that kill pollinators and sterilize the environment.</p>
         <br />
         <h1>Sustainable, Simple, Aesthetic.</h1>
         <br />
