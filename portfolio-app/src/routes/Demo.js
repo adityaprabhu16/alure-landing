@@ -3,7 +3,6 @@ import React from 'react'
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import HeroImg2 from '../components/HeroImg2.js';
-import Work from "../components/Work.js";
 import DemoStyles from "../components/DemoStyles.css";
 import InfoStyles from "../components/InfoStyles.css";
 
@@ -84,10 +83,6 @@ const Demo = () => {
         </div>
       </div>
 
-      <div className="section-divider"></div>
-      
-      <Work />
-      
       <Footer />
     </div>
   )

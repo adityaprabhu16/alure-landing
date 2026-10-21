@@ -3,9 +3,9 @@ import React from 'react'
 import Navbar from "../components/Navbar";
 import HeroImg from "../components/HeroImg";
 import Footer from "../components/Footer";
-import Work from "../components/Work";
 import News from "../components/News";
 import HowItWorks from "../components/HowItWorks";
+import SocialStrip from "../components/SocialStrip";
 import BeetleAnimation from "../components/BeetleAnimation";
 
 
@@ -17,7 +17,7 @@ const Home = () => {
       <HeroImg />
       <HowItWorks />
       <News />
-      <Work />
+      <SocialStrip />
       <Footer />
     </div>
   )
