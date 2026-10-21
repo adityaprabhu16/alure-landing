@@ -102,11 +102,11 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
+  min-height: 48px;
   padding: 12px 15px;
-  border: 2px solid #333;
+  border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s ease;
   background: #222;
   color: white;
   font-family: "Outfit", sans-serif;
@@ -115,9 +115,9 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  outline: none;
+  outline: 2px solid #90ee90;
+  outline-offset: 2px;
   border-color: #f5f193;
-  box-shadow: 0 0 0 3px rgba(245, 241, 147, 0.2);
 }
 
 /* Ensure placeholder text is visible */
@@ -311,7 +311,7 @@
 .form-group input:required,
 .form-group select:required,
 .form-group textarea:required {
-  border-color: #333;
+  border-color: rgba(255, 255, 255, 0.65);
 }
 
 .form-group select.is-invalid {
@@ -601,6 +601,11 @@
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+
+.legend-low { background-color: #e4f0c8; }
+.legend-medium { background-color: #a8c96a; }
+.legend-high { background-color: #5e8a32; }
+.legend-highest { background-color: #243d12; }
 
 .legend-item span {
   font-size: 0.8rem;

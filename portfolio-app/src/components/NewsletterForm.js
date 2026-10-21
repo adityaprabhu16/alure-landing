@@ -49,7 +49,7 @@ const NewsletterForm = () => {
   return (
     <div className="newsletter-form">
       <form onSubmit={handleSubmit} noValidate>
-        <label className="visually-hidden" htmlFor="newsletter-email">Email</label>
+        <label htmlFor="newsletter-email">Email</label>
         <input
           id="newsletter-email"
           type="email"

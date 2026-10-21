@@ -64,14 +64,14 @@ const News = () => {
               aria-expanded={isOpen}
               onClick={() => toggleCard(item.id)}
             >
-              <div className="news-image">
-                <img src={item.image} alt="" />
-              </div>
-              <div className="news-content">
+              <span className="news-image">
+                <img src={item.image} alt={item.title} />
+              </span>
+              <span className="news-content">
                 {isOpen && <time className="news-date">{item.date}</time>}
                 <h3 className="news-title">{item.title}</h3>
                 <p className="news-description">{item.description}</p>
-              </div>
+              </span>
             </button>
             <a
               className="news-read-more"

@@ -15,7 +15,7 @@ const WorkCard = ({myData}) => {
 
   return (
     <div className="project-card">
-        <img src={myData.imgsrc} className="project-img" alt="project1"/>
+        <img src={myData.imgsrc} className="project-img" alt={myData.title}/>
         <h2 className="project-title">{myData.title}</h2>
         <div className="pro-details">
             <p>{myData.text}</p>

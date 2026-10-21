@@ -64,6 +64,39 @@ h1, h4, p, a {
     cursor: pointer;
 }
 
+.nav-menu li a.active {
+    color: #90ee90;
+}
+
+.nav-menu li a.active:hover {
+    background: none;
+    -webkit-text-fill-color: #90ee90;
+    color: #90ee90;
+}
+
+.nav-menu li a.nav-contact {
+    background: linear-gradient(45deg, #f5f193, #90ee90);
+    color: #222;
+    -webkit-text-fill-color: #222;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-weight: 600;
+}
+
+.nav-menu li a.nav-contact:hover,
+.nav-menu li a.nav-contact.active,
+.nav-menu li a.nav-contact.active:hover {
+    background: linear-gradient(45deg, #f5f193, #90ee90);
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: #222;
+    color: #222;
+}
+
+.nav-menu li a.nav-contact.active {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
 .hamburger {
     display: none;
 }

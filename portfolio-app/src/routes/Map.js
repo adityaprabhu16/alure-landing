@@ -109,12 +109,10 @@ const HeatMapLayer = ({ sightings, zoomLevel }) => {
         blur: zoomLevel < 8 ? 40 : 15,
         maxZoom: 10,
         gradient: {
-          0.0: '#00ff00',   // Green for low intensity
-          0.2: '#90ee90',   // Light green
-          0.4: '#ffff00',   // Yellow for medium intensity
-          0.6: '#ff8000',   // Orange for high intensity
-          0.8: '#ff4000',   // Dark orange
-          1.0: '#ff0000'    // Red for very high intensity
+          0.0: '#e4f0c8',
+          0.33: '#a8c96a',
+          0.66: '#5e8a32',
+          1.0: '#243d12'
         },
         maxIntensity: maxIntensity
       });
@@ -511,28 +509,20 @@ const MapInteraction = ({ active, narrow }) => {
               <h4>Infestation Density</h4>
               <div className="legend-items">
                 <div className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: '#00ff00' }}></div>
+                  <div className="legend-color legend-low"></div>
                   <span>Low Density</span>
                 </div>
                 <div className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: '#90ee90' }}></div>
-                  <span>Light Density</span>
-                </div>
-                <div className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: '#ffff00' }}></div>
+                  <div className="legend-color legend-medium"></div>
                   <span>Medium Density</span>
                 </div>
                 <div className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: '#ff8000' }}></div>
+                  <div className="legend-color legend-high"></div>
                   <span>High Density</span>
                 </div>
                 <div className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: '#ff4000' }}></div>
-                  <span>Very High Density</span>
-                </div>
-                <div className="legend-item">
-                  <div className="legend-color" style={{ backgroundColor: '#ff0000' }}></div>
-                  <span>Critical Density</span>
+                  <div className="legend-color legend-highest"></div>
+                  <span>Highest Density</span>
                 </div>
               </div>
               <small style={{ color: '#666', fontSize: '0.7rem', marginTop: '8px', display: 'block' }}>

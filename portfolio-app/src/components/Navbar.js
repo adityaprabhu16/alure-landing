@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import { FaBars, FaTimes } from "react-icons/fa";
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import BeetleLogo from "../assets/beetle.png";
 
@@ -27,11 +27,11 @@ const Navbar = () => {
         <div className={color ? "header header-bg" : "header"}>
             <Link to={"/"} className="logo-container"><img src={BeetleLogo} className="logo" alt="beetle logo"/><h1>Alure</h1></Link>
             <ul className={click ? "nav-menu active" : "nav-menu"}>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/map">Map</Link></li>
-                <li><Link to="/demo">Demo</Link></li>
-                <li><Link to="/news">News</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                <li><NavLink to="/" end className={({ isActive }) => isActive ? "active" : undefined}>Home</NavLink></li>
+                <li><NavLink to="/map" className={({ isActive }) => isActive ? "active" : undefined}>Map</NavLink></li>
+                <li><NavLink to="/demo" className={({ isActive }) => isActive ? "active" : undefined}>Demo</NavLink></li>
+                <li><NavLink to="/news" className={({ isActive }) => isActive ? "active" : undefined}>News</NavLink></li>
+                <li><NavLink to="/contact" className={({ isActive }) => isActive ? "nav-contact active" : "nav-contact"}>Contact</NavLink></li>
             </ul>
             <div className="hamburger" onClick={handleClick}>
                 {
