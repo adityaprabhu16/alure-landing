@@ -8,7 +8,7 @@ const MESSAGE_MAX = 2000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEFAULT_SUCCESS = "Thanks. Your message is on its way to Alure.";
 
-const Form = ({ fixedSubject = null, successMessage = null }) => {
+const Form = ({ fixedSubject = null, successMessage = null, source = "Contact" }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -77,10 +77,11 @@ const Form = ({ fixedSubject = null, successMessage = null }) => {
               "Content-Type": "text/plain;charset=utf-8"
           },
           body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: `${source}: ${(fixedSubject ?? formData.subject).trim()}`,
+            message: formData.message.trim(),
+            source
           }),
           redirect: 'follow'
       });

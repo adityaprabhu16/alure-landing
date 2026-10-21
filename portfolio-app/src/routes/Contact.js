@@ -16,7 +16,7 @@ const Contact = () => {
       <div className="section-divider"></div>
       
       <HeroImg2 heading="Let's have a chat" text="We are always looking for new and exciting opportunities. Let's get in touch" backgroundImage="contact"/>
-      <Form />
+      <Form source="Contact" />
       <Footer />
     </div>
   )
