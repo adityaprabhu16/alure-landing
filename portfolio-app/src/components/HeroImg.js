@@ -1,6 +1,7 @@
 import "./HeroImgStyles.css";
 import IntroVideo from '../assets/vineyard.mp4'
 import { Link } from 'react-router-dom'
+import NewsletterForm from "./NewsletterForm";
 
 const HeroImg = () => {
   return (
@@ -10,11 +11,9 @@ const HeroImg = () => {
         </div>
         <div className="content">
             <h1>Eliminate <span className="gradient-text">Japanese Beetles.</span></h1>
-            <p>Follow Alure LLC for more.</p>
-            <div className="link-container">
-              <Link to="/demo" className="btn">Learn More</Link>
-              <Link to="/contact" className="btn-light">Join Newsletter</Link>
-            </div>
+            <p>Hands-free Japanese beetle control. Get field updates and launch news.</p>
+            <NewsletterForm />
+            <Link to="/contact#contact-form" className="grower-link">Growers: request a pilot</Link>
         </div>
     </div>
   )

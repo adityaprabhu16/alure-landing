@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NewsStyles.css';
 
 const News = () => {
@@ -37,9 +37,10 @@ const News = () => {
     }
   ];
 
-  const handleNewsClick = (link) => {
-    // Open the external link in a new tab
-    window.open(link, '_blank');
+  const [openId, setOpenId] = useState(null);
+
+  const toggleCard = (id) => {
+    setOpenId((current) => (current === id ? null : id));
   };
 
   return (
@@ -50,25 +51,39 @@ const News = () => {
       </div>
       
       <div className="news-grid">
-        {newsItems.map((item) => (
-          <div 
-            key={item.id} 
-            className="news-item"
-            onClick={() => handleNewsClick(item.link)}
+        {newsItems.map((item) => {
+          const isOpen = openId === item.id;
+          return (
+          <article
+            key={item.id}
+            className={isOpen ? "news-item is-open" : "news-item"}
           >
-            <div className="news-image">
-              <img src={item.image} alt={item.title} />
-            </div>
-            <div className="news-content">
-              <div className="news-date">{item.date}</div>
-              <h3 className="news-title">{item.title}</h3>
-              <p className="news-description">{item.description}</p>
-              <div className="news-read-more">
-                Read More →
+            <button
+              type="button"
+              className="news-open"
+              aria-expanded={isOpen}
+              onClick={() => toggleCard(item.id)}
+            >
+              <div className="news-image">
+                <img src={item.image} alt="" />
               </div>
-            </div>
-          </div>
-        ))}
+              <div className="news-content">
+                {isOpen && <time className="news-date">{item.date}</time>}
+                <h3 className="news-title">{item.title}</h3>
+                <p className="news-description">{item.description}</p>
+              </div>
+            </button>
+            <a
+              className="news-read-more"
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read More →
+            </a>
+          </article>
+          );
+        })}
       </div>
       
       <div className="news-footer">
