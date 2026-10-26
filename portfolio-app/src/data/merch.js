@@ -31,17 +31,17 @@ export const merchProducts = [
 export const shootFrames = [
   {
     imageUrl: "",
-    caption: "Placeholder. Add a photoshoot still.",
+    caption: "Coming Soon",
     placeholder: true
   },
   {
     imageUrl: "",
-    caption: "Placeholder. Add a photoshoot still.",
+    caption: "Coming Soon",
     placeholder: true
   },
   {
     imageUrl: "",
-    caption: "Placeholder. Add a photoshoot still.",
+    caption: "Coming Soon",
     placeholder: true
   }
 ];
